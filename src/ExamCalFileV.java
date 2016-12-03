@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -33,7 +35,7 @@ public class ExamCalFileV {
 
 	//表示内容変更
 	void changeFileList(){
-		String[] fileList = calM.getFileList();
+		ArrayList<String> fileList = calM.getFileListSt();
 		ObservableList<String> list = FXCollections.observableArrayList(fileList);//一覧内容
 		listView.setItems(list);
 	}

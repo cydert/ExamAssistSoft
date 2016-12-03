@@ -30,6 +30,7 @@ public class ExamCalC {
 		PublicView.showAlert("未実装です");
 	}
 	void selectFile(MouseEvent e){
+		//ダブルクリックされたら
 		boolean doubleClick = e.getButton().equals(MouseButton.PRIMARY) && (e.getClickCount() == 2);
 		if(doubleClick){
 			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();
