@@ -27,6 +27,7 @@ public class ExamCalFileV {
 		listView.setEditable(false);					//編集不可
 		listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);	//単体のみ選択可
 
+		root.getChildren().addAll(listView);
 		stage.setScene(new Scene(root));//表示
 	}
 

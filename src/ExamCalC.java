@@ -1,3 +1,5 @@
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class ExamCalC {
@@ -20,9 +22,19 @@ public class ExamCalC {
 	void selectTemplate(){
 		calFileV = new ExamCalFileV();
 		calFileV.bindModel(calM);
+		calFileV.changeFileList();
+		calFileV.getListView().setOnMouseClicked(e -> selectFile(e));
 	}
 
 	void editFx(){
 		PublicView.showAlert("未実装です");
+	}
+	void selectFile(MouseEvent e){
+		boolean doubleClick = e.getButton().equals(MouseButton.PRIMARY) && (e.getClickCount() == 2);
+		if(doubleClick){
+			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();
+
+			System.out.println(selectSt);
+		}
 	}
 }
