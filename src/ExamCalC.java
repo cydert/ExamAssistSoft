@@ -17,7 +17,7 @@ public class ExamCalC {
 	}
 
 	void selectTemplate(){
-
+		calV.showFileList();
 	}
 
 	void editFx(){
