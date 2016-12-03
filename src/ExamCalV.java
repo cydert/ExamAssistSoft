@@ -11,16 +11,21 @@ public class ExamCalV {
 	ExamCalV(Stage stage){
 		VBox root = new VBox();
 
-		button = new Button[2];
+		//ボタン
+		button = new Button[4];
 		button[0] = new Button("テンプレート");
 		button[1] = new Button("式の編集");
+		button[2] = new Button("保存");
+		button[3] = new Button("計算");
 		//ボタンの共通初期設定
 		for(int i=0; i<button.length; i++){
 			button[i].setId(i + "");
 		}
 
 		HBox hBox = new HBox();
-		hBox.getChildren().addAll(button);
+		hBox.getChildren().addAll(button[0],button[1]);
+
+
 
 		//表示
 		root.getChildren().addAll(hBox);

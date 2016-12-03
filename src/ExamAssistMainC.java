@@ -18,6 +18,7 @@ public class ExamAssistMainC {
 		PublicView.showAlert("未実装");
 	}
 	public void toCalView(){
+		//計算画面コントローラーへ
 		new ExamCalC(stage);
 	}
 }

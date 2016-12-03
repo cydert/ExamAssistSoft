@@ -7,6 +7,8 @@ public class ExamAssistMainV {
 	Button[] button;
 	ExamAssistMainV(Stage stage) {
 		VBox root = new VBox();
+
+		//ボタン
 		button = new Button[2];
 		button[0] = new Button("マイページ");
 		button[1] = new Button("テスト点計算");
@@ -17,6 +19,7 @@ public class ExamAssistMainV {
 		root.getChildren().addAll(button);
 		stage.setScene(new Scene(root));
 	}
+
 
 	Button getButton(int id){
 		for(int i=0; i<button.length; i++){

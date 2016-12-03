@@ -10,6 +10,7 @@ public class ExamCalC {
 
 		calV.bindModel(calM);
 
+		//ボタン時の動作
 		calV.getButton(0).setOnAction(e -> selectTemplate());//テンプレボタン
 		calV.getButton(1).setOnAction(e -> editFx());		//式編集ボタン
 
