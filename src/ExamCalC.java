@@ -21,7 +21,7 @@ public class ExamCalC {
 
 	//テンプレファイル選択画面
 	void selectTemplate(){
-		calM.clearFilePath();
+		calM.clearDirPath();
 		calFileV = new ExamCalFileV();
 		calFileV.bindModel(calM);
 		calFileV.changeFileList();//ファイル一覧表示
@@ -37,10 +37,12 @@ public class ExamCalC {
 		//ダブルクリックされたら
 		boolean doubleClick = e.getButton().equals(MouseButton.PRIMARY) && (e.getClickCount() == 2);
 		if(doubleClick){
-			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();
-			calM.setFilePath(selectSt + ".txt");
-			calFileV.getStage().hide();
-			System.out.println(selectSt);
+			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();//選択されたもの
+			calM.setCurrentFileName(selectSt + ".txt");	//Pathに正式名称で登録
+			calFileV.getStage().hide();			//Window閉じる
+
+			System.out.println(calM.getCurrentFileName());
+			calV.showScoreList(true);
 		}
 	}
 }

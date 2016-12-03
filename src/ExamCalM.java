@@ -3,21 +3,19 @@ import java.util.ArrayList;
 
 public class ExamCalM {
 	private String fileHostPath = "data\\";
-	private String filePath = "";
+	private String fileDirPath = "";	//表示中のdir
+	private String currentPath = "";	//選択中の正式Path
 	private File[] fileList;
 
 	void reloadFileList(){
 		checkHostFile();
-		File file = new File(fileHostPath + filePath);
+		File file = new File(fileHostPath + fileDirPath);
 		fileList = file.listFiles();
 	}
 
-	//File一覧をArrayList<String>で返却
-	ArrayList<String> getFileListStAr() {
-		if(fileList == null){
-			reloadFileList();
-			System.out.println("null");
-		}
+	//現在位置のファイル一覧表示
+	ArrayList<String> getFileNameAr() {
+		reloadFileList();
 		ArrayList<String> ar = new ArrayList<>();
 		for (int i = 0; i < fileList.length; i++) {
 			if (fileList[i].isFile()){
@@ -51,11 +49,14 @@ public class ExamCalM {
 	}
 
 	void setFilePath(String path) {
-		filePath = path;
+		fileDirPath = path;
+	}
+	void setCurrentFileName(String fileName){
+		currentPath = fileHostPath + fileName;
 	}
 
-	String getFilePath() {
-		return filePath;
+	String getDirPath() {
+		return fileDirPath;
 	}
 
 	String getHostPath() {
@@ -63,10 +64,25 @@ public class ExamCalM {
 	}
 
 	String getAllFilePath() {
-		return fileHostPath + filePath;
+		return fileHostPath + fileDirPath + "fileName";
 	}
-	void clearFilePath(){
-		filePath = "";
+	void clearDirPath(){
+		fileDirPath = "";
+	}
+	void clearCurrentPath(){
+		currentPath = "";
+	}
+	String getCurrentFileName(){
+		if(currentPath.equals("")){
+			return "";
+		}else {
+			int tmpIndex = currentPath.lastIndexOf("\\");
+			if( tmpIndex != -1){
+				//途中dir変更あれば
+				return currentPath.substring(tmpIndex+1, currentPath.lastIndexOf("."));
+			}
+			return currentPath.substring(0,currentPath.lastIndexOf("."));
+		}
 	}
 
 }

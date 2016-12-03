@@ -33,11 +33,13 @@ public class ExamCalFileV {
 		stage.setScene(new Scene(root));//表示
 	}
 
-	//表示内容変更
+	//(ボタン押された時など)Modelのファイルリストを見て表示内容変更
 	void changeFileList(){
-		ArrayList<String> fileList = calM.getFileListStAr();
+		ArrayList<String> fileList = calM.getFileNameAr();
 		ObservableList<String> list = FXCollections.observableArrayList(fileList);//一覧内容
 		listView.setItems(list);
+
+		//要dir版
 	}
 
 	ListView<String> getListView(){
