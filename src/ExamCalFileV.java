@@ -47,6 +47,9 @@ public class ExamCalFileV {
 	void bindModel(ExamCalM calM){
 		this.calM = calM;
 	}
+	Stage getStage(){
+		return stage;
+	}
 
 
 }
