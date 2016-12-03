@@ -21,6 +21,7 @@ public class ExamCalC {
 
 	//テンプレファイル選択画面
 	void selectTemplate(){
+		calM.clearFilePath();
 		calFileV = new ExamCalFileV();
 		calFileV.bindModel(calM);
 		calFileV.changeFileList();//ファイル一覧表示

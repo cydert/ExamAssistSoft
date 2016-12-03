@@ -9,8 +9,11 @@ public class ExamCalM {
 	//File一覧をArrayList<String>で返却
 	ArrayList<String> getFileListSt() {
 		File[] fileList = getFileList();
+		System.out.println(fileList.length);
+
 		ArrayList<String> ar = new ArrayList<>();
 		for (int i = 0; i < fileList.length; i++) {
+			System.out.println(i);
 			if (fileList[i].isFile()){
 				ar.add((fileList[i].getName().split("\\.")[0]));	//拡張子除去して追加
 			}
@@ -41,6 +44,7 @@ public class ExamCalM {
 		if(!file.exists()){
 			file.mkdir();
 		}
+		System.out.println("hos:" +fileHostPath);
 	}
 
 	void setFilePath(String path) {
@@ -58,6 +62,8 @@ public class ExamCalM {
 	String getAllFilePath() {
 		return fileHostPath + filePath;
 	}
-
+	void clearFilePath(){
+		filePath = "";
+	}
 
 }
