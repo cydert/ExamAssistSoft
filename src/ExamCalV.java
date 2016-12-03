@@ -1,13 +1,8 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ExamCalV {
@@ -59,28 +54,6 @@ public class ExamCalV {
 			vBoxScore.setVisible(isShow);
 			bottomBar.setVisible(isShow);
 	}
-	void showFileList(){
-		String[] fileList = calM.getFileList();
-
-		Stage fileStage = new Stage();
-		fileStage.setWidth(700);
-		fileStage.setHeight(600);
-		fileStage.setTitle("ファイルを選択");
-		fileStage.initModality(Modality.APPLICATION_MODAL);//他画面選択不可
-		fileStage.show();
-
-		VBox root = new VBox();
-		ListView<String> listView = new ListView<>();//リストビュー
-		listView.setEditable(false);					//編集不可
-		listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);	//単体のみ選択可
-
-		ObservableList<String> list = FXCollections.observableArrayList(fileList);//一覧内容
-		listView.setItems(list);
-
-
-		fileStage.setScene(new Scene(root));
-	}
-
 	Button getButton(int id){
 		for(int i=0; i<button.length; i++){
 			if(button[i].getId().equals(id + "")){

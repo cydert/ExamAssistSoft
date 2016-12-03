@@ -3,6 +3,7 @@ import javafx.stage.Stage;
 public class ExamCalC {
 	ExamCalV calV;
 	ExamCalM calM;
+	ExamCalFileV calFileV;
 
 	ExamCalC(Stage stage){
 		calV = new ExamCalV(stage);
@@ -17,7 +18,8 @@ public class ExamCalC {
 	}
 
 	void selectTemplate(){
-		calV.showFileList();
+		calFileV = new ExamCalFileV();
+		calFileV.bindModel(calM);
 	}
 
 	void editFx(){
