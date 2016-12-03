@@ -35,7 +35,7 @@ public class ExamCalFileV {
 
 	//表示内容変更
 	void changeFileList(){
-		ArrayList<String> fileList = calM.getFileListSt();
+		ArrayList<String> fileList = calM.getFileListStAr();
 		ObservableList<String> list = FXCollections.observableArrayList(fileList);//一覧内容
 		listView.setItems(list);
 	}

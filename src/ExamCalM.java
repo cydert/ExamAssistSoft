@@ -4,16 +4,22 @@ import java.util.ArrayList;
 public class ExamCalM {
 	private String fileHostPath = "data\\";
 	private String filePath = "";
-	private String[] fileList;
+	private File[] fileList;
+
+	void reloadFileList(){
+		checkHostFile();
+		File file = new File(fileHostPath + filePath);
+		fileList = file.listFiles();
+	}
 
 	//File一覧をArrayList<String>で返却
-	ArrayList<String> getFileListSt() {
-		File[] fileList = getFileList();
-		System.out.println(fileList.length);
-
+	ArrayList<String> getFileListStAr() {
+		if(fileList == null){
+			reloadFileList();
+			System.out.println("null");
+		}
 		ArrayList<String> ar = new ArrayList<>();
 		for (int i = 0; i < fileList.length; i++) {
-			System.out.println(i);
 			if (fileList[i].isFile()){
 				ar.add((fileList[i].getName().split("\\.")[0]));	//拡張子除去して追加
 			}
@@ -22,7 +28,10 @@ public class ExamCalM {
 	}
 
 	ArrayList<String> getDirListSt() {
-		File[] fileList = getFileList();
+		if(fileList == null){
+			reloadFileList();
+			System.out.println("null2");
+		}
 		ArrayList<String> ar = new ArrayList<>();
 		for (int i = 0; i < fileList.length; i++) {
 			if (fileList[i].isDirectory()) {
@@ -32,13 +41,7 @@ public class ExamCalM {
 		return ar;
 	}
 
-	File[] getFileList() {
-		checkHostFile();
-		File[] fileList;
-		File file = new File(fileHostPath + filePath);
-		fileList = file.listFiles();
-		return fileList;
-	}
+
 	private void checkHostFile(){
 		File file = new File(fileHostPath);
 		if(!file.exists()){
