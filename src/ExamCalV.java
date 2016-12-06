@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ExamCalV {
-	ExamCalM calM;
+	ExamCalFileM calFileM;
 	private Button[] button;
 	private BorderPane root;
 	private VBox vBoxScore;
@@ -42,7 +42,6 @@ public class ExamCalV {
 		bottomBar = new AnchorPane();
 		bottomBar.getChildren().addAll(button[2],button[3]);
 
-
 		//表示
 		root.setTop(topBar);
 		root.setCenter(vBoxScore);
@@ -65,8 +64,8 @@ public class ExamCalV {
 	}
 
 	//参照modelの設定
-	void bindModel(ExamCalM calM){
-		this.calM = calM;
+	void bindModel(ExamCalFileM calM){
+		this.calFileM = calM;
 	}
 
 }

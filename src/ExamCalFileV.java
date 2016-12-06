@@ -10,7 +10,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ExamCalFileV {
-	private ExamCalM calM;
+	private ExamCalFileM calFileM;
 	private Stage stage;
 	private ListView<String> listView;
 
@@ -35,7 +35,7 @@ public class ExamCalFileV {
 
 	//(ボタン押された時など)Modelのファイルリストを見て表示内容変更
 	void changeFileList(){
-		ArrayList<String> fileList = calM.getFileNameAr();
+		ArrayList<String> fileList = calFileM.getFileNameAr();
 		ObservableList<String> list = FXCollections.observableArrayList(fileList);//一覧内容
 		listView.setItems(list);
 
@@ -46,8 +46,8 @@ public class ExamCalFileV {
 		return listView;
 	}
 
-	void bindModel(ExamCalM calM){
-		this.calM = calM;
+	void bindModel(ExamCalFileM calFileM){
+		this.calFileM = calFileM;
 	}
 	Stage getStage(){
 		return stage;

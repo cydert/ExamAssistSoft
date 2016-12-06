@@ -4,14 +4,15 @@ import javafx.stage.Stage;
 
 public class ExamCalC {
 	ExamCalV calV;
-	ExamCalM calM;
+	//ExamCalFileM calM;
 	ExamCalFileV calFileV;
+	ExamCalFileM calFileM;
 
 	ExamCalC(Stage stage){
 		calV = new ExamCalV(stage);
-		calM = new ExamCalM();
+		calFileM = new ExamCalFileM();
 
-		calV.bindModel(calM);
+		calV.bindModel(calFileM);
 
 		//ボタン時の動作
 		calV.getButton(0).setOnAction(e -> selectTemplate());//テンプレボタン
@@ -21,9 +22,9 @@ public class ExamCalC {
 
 	//テンプレファイル選択画面
 	void selectTemplate(){
-		calM.clearDirPath();
+		calFileM.clearDirPath();
 		calFileV = new ExamCalFileV();
-		calFileV.bindModel(calM);
+		calFileV.bindModel(calFileM);
 		calFileV.changeFileList();//ファイル一覧表示
 		calFileV.getListView().setOnMouseClicked(e -> selectFile(e));
 	}
@@ -38,10 +39,10 @@ public class ExamCalC {
 		boolean doubleClick = e.getButton().equals(MouseButton.PRIMARY) && (e.getClickCount() == 2);
 		if(doubleClick){
 			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();//選択されたもの
-			calM.setCurrentFileName(selectSt + ".txt");	//Pathに正式名称で登録
+			calFileM.setCurrentFileName(selectSt + ".txt");	//FilePathを正式名称で登録
 			calFileV.getStage().hide();			//Window閉じる
 
-			System.out.println(calM.getCurrentFileName());
+			System.out.println(calFileM.getCurrentFileName());
 			calV.showScoreList(true);
 		}
 	}
