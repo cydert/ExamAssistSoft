@@ -74,6 +74,10 @@ public class ExamCalV {
 
 	}
 
+	void clearTestBox(){
+		centerGrid.getChildren().clear();
+	}
+
 	void showScoreList(boolean isShow) {
 		vBoxScore.setVisible(isShow);
 		bottomBar.setVisible(isShow);

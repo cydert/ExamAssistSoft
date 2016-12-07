@@ -45,6 +45,7 @@ public class ExamCalC {
 		//ダブルクリックされたら
 		boolean doubleClick = e.getButton().equals(MouseButton.PRIMARY) && (e.getClickCount() == 2);
 		if(doubleClick){
+			calV.clearTestBox();	//testBox 初期化
 			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();//選択されたもの
 			calFileM.setCurrentFileName(selectSt + ".txt");	//FilePathを正式名称で登録
 			calFileV.getStage().hide();			//Window閉じる
