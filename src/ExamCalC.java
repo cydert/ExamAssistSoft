@@ -45,5 +45,10 @@ public class ExamCalC {
 			System.out.println(calFileM.getCurrentFileName());
 			calV.showScoreList(true);
 		}
+		//文をもらう
+		//Modelへ渡して解析
+		//Viewに通知
+
+		calV.setTestBox();
 	}
 }
