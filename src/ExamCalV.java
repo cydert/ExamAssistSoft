@@ -64,7 +64,7 @@ public class ExamCalV {
 	}
 
 	void setTestBox(){
-		String[] examList = calM.getExamList();	//テスト名取得 例:前期中間
+		String[] examList = calFileM.getExamList();	//テスト名取得 例:前期中間
 		examField = new TextField[examList.length];	//入力box テスト点用
 		for(int i=0; i<examList.length; i++){
 			centerGrid.add(new Label(examList[i]), 0, i);

@@ -44,13 +44,14 @@ public class ExamCalC {
 			calFileM.setCurrentFileName(selectSt + ".txt");	//FilePathを正式名称で登録
 			calFileV.getStage().hide();			//Window閉じる
 
-			System.out.println(calFileM.getCurrentFileName());
-			calV.showScoreList(true);
+			calFileM.readFile();
+			calV.showScoreList(true);//入力欄など表示
+			calV.setTestBox();
 		}
 		//文をもらう
 		//Modelへ渡して解析
 		//Viewに通知
 
-		calV.setTestBox();
+
 	}
 }
