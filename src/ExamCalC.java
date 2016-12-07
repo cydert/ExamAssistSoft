@@ -4,15 +4,17 @@ import javafx.stage.Stage;
 
 public class ExamCalC {
 	ExamCalV calV;
-	//ExamCalFileM calM;
 	ExamCalFileV calFileV;
 	ExamCalFileM calFileM;
+	ExamCalM calM;
 
 	ExamCalC(Stage stage){
 		calV = new ExamCalV(stage);
 		calFileM = new ExamCalFileM();
+		calM = new ExamCalM();
 
-		calV.bindModel(calFileM);
+		calV.bindModel(calFileM,calM);
+
 
 		//ボタン時の動作
 		calV.getButton(0).setOnAction(e -> selectTemplate());//テンプレボタン

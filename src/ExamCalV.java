@@ -99,8 +99,9 @@ public class ExamCalV {
 	}
 
 	// 参照modelの設定
-	void bindModel(ExamCalFileM calM) {
-		this.calFileM = calM;
+	void bindModel(ExamCalFileM calFileM,ExamCalM calM) {
+		this.calFileM = calFileM;
+		this.calM = calM;
 	}
 
 }
