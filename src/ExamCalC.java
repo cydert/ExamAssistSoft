@@ -8,56 +8,56 @@ public class ExamCalC {
 	ExamCalFileM calFileM;
 	ExamCalM calM;
 
-	ExamCalC(Stage stage){
+	ExamCalC(Stage stage) {
 		calV = new ExamCalV(stage);
 		calFileM = new ExamCalFileM();
 		calM = new ExamCalM();
 
-		calV.bindModel(calFileM,calM);
+		calV.bindModel(calFileM, calM);
 
-
-		//ボタン時の動作
-		calV.getButton(0).setOnAction(e -> selectTemplate());//テンプレボタン
-		calV.getButton(1).setOnAction(e -> editFx());		//式編集ボタン
+		// ボタン時の動作
+		calV.getButton(0).setOnAction(e -> selectTemplate());// テンプレボタン
+		calV.getButton(1).setOnAction(e -> editFx()); // 式編集ボタン
 		calV.getButton(2).setOnAction(e -> save());
 
 	}
 
-	//テンプレファイル選択画面
-	void selectTemplate(){
+	// テンプレファイル選択画面
+	void selectTemplate() {
 		calFileM.clearDirPath();
 		calFileV = new ExamCalFileV();
 		calFileV.bindModel(calFileM);
-		calFileV.changeFileList();//ファイル一覧表示
+		calFileV.changeFileList();// ファイル一覧表示
 		calFileV.getListView().setOnMouseClicked(e -> selectFile(e));
 	}
 
-	void editFx(){
+	void editFx() {
 		PublicView.showAlert("未実装です");
 	}
 
-	void save(){
+	void save() {
 		PublicView.showAlert("未実装です");
 	}
 
-	//ファイル選択されたら
-	void selectFile(MouseEvent e){
-		//ダブルクリックされたら
+	// ファイル選択されたら
+	void selectFile(MouseEvent e) {
+		// ダブルクリックされたら
 		boolean doubleClick = e.getButton().equals(MouseButton.PRIMARY) && (e.getClickCount() == 2);
-		if(doubleClick){
-			calV.clearTestBox();	//testBox 初期化
-			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();//選択されたもの
-			calFileM.setCurrentFileName(selectSt + ".txt");	//FilePathを正式名称で登録
-			calFileV.getStage().hide();			//Window閉じる
+		if (doubleClick) {
+			calV.clearTestBox(); // testBox 初期化
+			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();// 選択されたもの
+			calFileM.setCurrentFileName(selectSt + ".txt"); // FilePathを正式名称で登録
+			calFileV.getStage().hide(); // Window閉じる
 
-			calFileM.readFile();
-			calV.showScoreList(true);//入力欄など表示
+			calFileM.readFile();	//ファイル解析
+
+			calV.showScoreList(true);// 入力欄など表示
 			calV.setTestBox();
-		}
-		//文をもらう
-		//Modelへ渡して解析
-		//Viewに通知
 
+		}
+		// 文をもらう
+		// Modelへ渡して解析
+		// Viewに通知
 
 	}
 }
