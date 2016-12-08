@@ -93,13 +93,17 @@ public class ExamCalV {
 
 	}
 
-	TextField getTextFiled(int id){
+	TextField getExamTextFiled(int id){
 		for(int i=0; i<examField.length; i++){
 			if(examField[i].getId().equals(id + "")){
 				return examField[i];
 			}
 		}
 		return null;
+	}
+	
+	TextField[] getExamTextField(){
+		return examField;
 	}
 
 	// 参照modelの設定

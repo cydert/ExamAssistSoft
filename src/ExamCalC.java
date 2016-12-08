@@ -18,7 +18,8 @@ public class ExamCalC {
 		// ボタン時の動作
 		calV.getButton(0).setOnAction(e -> selectTemplate());// テンプレボタン
 		calV.getButton(1).setOnAction(e -> editFx()); // 式編集ボタン
-		calV.getButton(2).setOnAction(e -> save());
+		calV.getButton(2).setOnAction(e -> save());	//保存ボタン
+		calV.getButton(3).setOnAction(e -> cal());	//計算ボタン
 
 	}
 
@@ -37,6 +38,13 @@ public class ExamCalC {
 
 	void save() {
 		PublicView.showAlert("未実装です");
+	}
+	
+	void cal(){
+		//入力Box取得
+		String[] examList = new String[calV.getExamTextField().length];
+		calM.setExamList(examList);
+		
 	}
 
 	// ファイル選択されたら
