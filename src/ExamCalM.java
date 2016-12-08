@@ -16,6 +16,7 @@ public class ExamCalM {
 				this.examInput[i] = Double.parseDouble(examInput[i]);
 			}
 		}
+		
 	}
 	
 	void setFormula(String formula){

@@ -18,8 +18,8 @@ public class ExamCalC {
 		// ボタン時の動作
 		calV.getButton(0).setOnAction(e -> selectTemplate());// テンプレボタン
 		calV.getButton(1).setOnAction(e -> editFx()); // 式編集ボタン
-		calV.getButton(2).setOnAction(e -> save());	//保存ボタン
-		calV.getButton(3).setOnAction(e -> cal());	//計算ボタン
+		calV.getButton(2).setOnAction(e -> save()); // 保存ボタン
+		calV.getButton(3).setOnAction(e -> cal()); // 計算ボタン
 
 	}
 
@@ -39,32 +39,35 @@ public class ExamCalC {
 	void save() {
 		PublicView.showAlert("未実装です");
 	}
-	
-	void cal(){	//計算ボタン
-		if(calV.getExamGoalScore().equals("")){
+
+	void cal() { // 計算ボタン
+		if (calV.getExamGoalScore().equals("")) {
 			PublicView.showAlert("目標点を入力してください");
+		} else {
+			PublicView.showAlert("未実装");
+			// 入力Box取得
+			String[] examList = new String[calV.getExamTextField().length];
+			for (int i = 0; i < examList.length; i++) {
+				examList[i] = calV.getExamTextFiled(i).getText();
+			}
+			calM.setExamList(examList); // 入力した点を取得
 		}
-		//入力Box取得
-		String[] examList = new String[calV.getExamTextField().length];
-		for(int i=0; i<examList.length; i++){
-			examList[i] = calV.getExamTextFiled(i).getText();
-		}
-		calM.setExamList(examList);	//入力した点を取得
-		
-		
+
 	}
 
 	// ファイル選択されたら
 	void selectFile(MouseEvent e) {
 		// ダブルクリックされたら
-		boolean doubleClick = e.getButton().equals(MouseButton.PRIMARY) && (e.getClickCount() == 2);
+		boolean doubleClick = e.getButton().equals(MouseButton.PRIMARY)
+				&& (e.getClickCount() == 2);
 		if (doubleClick) {
 			calV.clearTestBox(); // testBox 初期化
-			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();// 選択されたもの
+			String selectSt = calFileV.getListView().getSelectionModel()
+					.getSelectedItem();// 選択されたもの
 			calFileM.setCurrentFileName(selectSt + ".txt"); // FilePathを正式名称で登録
 			calFileV.getStage().hide(); // Window閉じる
 
-			calFileM.readFile();	//ファイル解析
+			calFileM.readFile(); // ファイル解析
 
 			calV.showScoreList(true);// 入力欄など表示
 			calV.setTestBox();
