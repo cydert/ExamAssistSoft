@@ -69,6 +69,7 @@ public class ExamCalV {
 		for(int i=0; i<examList.length; i++){
 			centerGrid.add(new Label(examList[i]), 0, i);
 			examField[i] = new TextField();
+			examField[i].setId(i + "");
 			centerGrid.add(examField[i], 1, i);
 		}
 

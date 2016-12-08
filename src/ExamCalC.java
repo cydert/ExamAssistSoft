@@ -43,7 +43,11 @@ public class ExamCalC {
 	void cal(){
 		//入力Box取得
 		String[] examList = new String[calV.getExamTextField().length];
+		for(int i=0; i<examList.length; i++){
+			examList[i] = calV.getExamTextFiled(i).getText();
+		}
 		calM.setExamList(examList);
+		
 		
 	}
 
