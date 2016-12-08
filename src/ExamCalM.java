@@ -2,10 +2,12 @@ public class ExamCalM {
 	private double[] examInput; // 入力した値
 	private boolean[] isExamInput; // 入力されてるか
 	private String formula;	//式
+	private String goalScore;
 
 	void setExamList(String[] examInput) {
 		this.examInput = new double[examInput.length];
 		this.isExamInput = new boolean[examInput.length];
+		
 		for (int i = 0; i < examInput.length; i++) {
 			if (examInput[i] == null || examInput[i].equals("")) {	//未入力
 				isExamInput[i] = false;
@@ -20,6 +22,10 @@ public class ExamCalM {
 		this.formula = formula;
 	}
 	
+	void setGoalScore(String goalScore){
+		this.goalScore = goalScore;
+	}
+	
 	void cal(){
 		
 	}
@@ -29,6 +35,7 @@ public class ExamCalM {
 		for(int i=0; i<isExamInput.length; i++){
 			cnt ++;
 		}
+		return cnt;
 	}
 	
 	

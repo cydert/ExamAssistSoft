@@ -20,6 +20,7 @@ public class ExamCalV {
 	private GridPane centerGrid;
 
 	private TextField[] examField;
+	private TextField examGoalScore;
 
 	ExamCalV(Stage stage) {
 		root = new BorderPane();
@@ -72,9 +73,19 @@ public class ExamCalV {
 			examField[i].setId(i + "");
 			centerGrid.add(examField[i], 1, i);
 		}
+		
+		examGoalScore = new TextField();
+		centerGrid.add(new Label("目標点"), 0, examList.length+2);
+		centerGrid.add(examGoalScore,1,examList.length+2);
+		
+		
+		
+		
 
 	}
-
+	String getExamGoalScore(){
+		return examGoalScore.getText();
+	}
 	void clearTestBox(){
 		centerGrid.getChildren().clear();
 	}

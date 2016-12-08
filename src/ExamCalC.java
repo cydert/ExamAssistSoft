@@ -40,13 +40,16 @@ public class ExamCalC {
 		PublicView.showAlert("未実装です");
 	}
 	
-	void cal(){
+	void cal(){	//計算ボタン
+		if(calV.getExamGoalScore().equals("")){
+			PublicView.showAlert("目標点を入力してください");
+		}
 		//入力Box取得
 		String[] examList = new String[calV.getExamTextField().length];
 		for(int i=0; i<examList.length; i++){
 			examList[i] = calV.getExamTextFiled(i).getText();
 		}
-		calM.setExamList(examList);
+		calM.setExamList(examList);	//入力した点を取得
 		
 		
 	}
