@@ -96,6 +96,10 @@ public class ExamCalFileM {
 			return currentPath.substring(0, currentPath.lastIndexOf("."));
 		}
 	}
+	
+	String getFormula(){
+		return formula;
+	}
 
 	void readFile() {
 		testInfo = new ArrayList<>();

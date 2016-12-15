@@ -19,8 +19,8 @@ public class ExamCalV {
 	private AnchorPane bottomBar;
 	private GridPane centerGrid;
 
-	private TextField[] examField;
-	private TextField examGoalScore;
+	private TextField[] examField;		//入力した値
+	private TextField examGoalScore;	//目標点
 
 	ExamCalV(Stage stage) {
 		root = new BorderPane();
@@ -76,11 +76,7 @@ public class ExamCalV {
 		
 		examGoalScore = new TextField();
 		centerGrid.add(new Label("目標点"), 0, examList.length+2);
-		centerGrid.add(examGoalScore,1,examList.length+2);
-		
-		
-		
-		
+		centerGrid.add(examGoalScore,1,examList.length+2);	
 
 	}
 	String getExamGoalScore(){
