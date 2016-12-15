@@ -52,7 +52,7 @@ public class ExamCalC {
 				examList[i] = calV.getExamTextFiled(i).getText();	//取得
 			}
 			
-			// 入力した点を渡す
+			// 式、目標点、入力した値を渡す
 			calM.setInit(calFileM.getFormula(), calV.getExamGoalScore() , examList);
 			
 			//計算後の値をもらす
