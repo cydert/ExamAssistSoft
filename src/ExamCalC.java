@@ -3,85 +3,83 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class ExamCalC {
-	ExamCalV calV;
-	ExamCalFileV calFileV;
-	ExamCalFileM calFileM;
+	ExamCalV calV; // ŒvZ‰æ–Ê
+	ExamCalFileV calFileV; // ƒtƒ@ƒCƒ‹ŠÇ—‰æ–Ê
 	ExamCalM calM;
 
 	ExamCalC(Stage stage) {
 		calV = new ExamCalV(stage);
-		calFileM = new ExamCalFileM();
 		calM = new ExamCalM();
 
-		calV.bindModel(calFileM, calM);
+		calV.bindModel(calM);
 
-		// ãƒœã‚¿ãƒ³æ™‚ã®å‹•ä½œ
-		calV.getButton(0).setOnAction(e -> selectTemplate());// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒœã‚¿ãƒ³
-		calV.getButton(1).setOnAction(e -> editFx()); // å¼ç·¨é›†ãƒœã‚¿ãƒ³
-		calV.getButton(2).setOnAction(e -> save()); // ä¿å­˜ãƒœã‚¿ãƒ³
-		calV.getButton(3).setOnAction(e -> cal()); // è¨ˆç®—ãƒœã‚¿ãƒ³
+		// ƒ{ƒ^ƒ“‚Ì“®ì
+		calV.getButton(0).setOnAction(e -> selectTemplate());// ƒeƒ“ƒvƒŒƒ{ƒ^ƒ“
+		calV.getButton(1).setOnAction(e -> editFx()); // ®•ÒWƒ{ƒ^ƒ“
+		calV.getButton(2).setOnAction(e -> save()); // •Û‘¶ƒ{ƒ^ƒ“
+		calV.getButton(3).setOnAction(e -> cal()); // ŒvZƒ{ƒ^ƒ“
 
 	}
 
-	// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ•ã‚¡ã‚¤ãƒ«é¸æŠç”»é¢
+	// ƒeƒ“ƒvƒŒƒtƒ@ƒCƒ‹‘I‘ğ‰æ–Ê
 	void selectTemplate() {
-		calFileM.clearDirPath();
-		calFileV = new ExamCalFileV();
-		calFileV.bindModel(calFileM);
-		calFileV.changeFileList();// ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§è¡¨ç¤º
+		calM.clearFileViewPath();
+		calFileV = new ExamCalFileV(); // ‰æ–Ê•\¦
+		calFileV.bindModel(calM);
+		calFileV.changeFileList();// ƒtƒ@ƒCƒ‹ˆê——•\¦
 		calFileV.getListView().setOnMouseClicked(e -> selectFile(e));
 	}
 
 	void editFx() {
-		PublicView.showAlert("æœªå®Ÿè£…ã§ã™");
+		PublicView.showAlert("–¢À‘•‚Å‚·");
 	}
 
 	void save() {
-		PublicView.showAlert("æœªå®Ÿè£…ã§ã™");
+		PublicView.showAlert("–¢À‘•‚Å‚·");
 	}
 
-	// è¨ˆç®—ãƒœã‚¿ãƒ³
-	void cal() { 
-		if (calV.getExamGoalScore().equals("")) {	//ç›®æ¨™ç‚¹æœªå…¥åŠ›
-			PublicView.showAlert("ç›®æ¨™ç‚¹ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„");
+	// ŒvZƒ{ƒ^ƒ“
+	void cal() {
+		if (calV.getExamGoalScore().equals("")) { // –Ú•W“_–¢“ü—Í
+			PublicView.showAlert("–Ú•W“_‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
 		} else {
-			PublicView.showAlert("æœªå®Ÿè£…");
-			// å…¥åŠ›Boxå–å¾—
-			String[] examList = new String[calV.getExamTextField().length];	//ãƒ†ã‚¹ãƒˆå…¥åŠ›æ¬„
+			PublicView.showAlert("–¢À‘•");
+			// “ü—ÍBoxæ“¾
+			String[] examList = new String[calV.getExamTextField().length]; // ƒeƒXƒg“ü—Í—“
 			for (int i = 0; i < examList.length; i++) {
-				examList[i] = calV.getExamTextFiled(i).getText();	//å–å¾—
+				examList[i] = calV.getExamTextFiled(i).getText(); // æ“¾
 			}
-			
-			// å¼ã€ç›®æ¨™ç‚¹ã€å…¥åŠ›ã—ãŸå€¤ã‚’æ¸¡ã™
-			calM.setInit(calFileM.getFormula(), calV.getExamGoalScore() , examList);
-			
-			//è¨ˆç®—å¾Œã®å€¤ã‚’ã‚‚ã‚‰ã™
+
+			// ®A–Ú•W“_A“ü—Í‚µ‚½’l‚ğ“n‚·
+			calM.setInit(calV.getExamGoalScore(), examList, calV.getHeijou());
+
+			// ŒvZŒã‚Ì’l‚ğ‚à‚ç‚·
 			calM.cal();
 		}
 
 	}
 
-	// ãƒ•ã‚¡ã‚¤ãƒ«é¸æŠã•ã‚ŒãŸã‚‰
+	// ƒtƒ@ƒCƒ‹‘I‘ğ‚³‚ê‚½‚ç
 	void selectFile(MouseEvent e) {
-		// ãƒ€ãƒ–ãƒ«ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã‚‰
-		boolean doubleClick = e.getButton().equals(MouseButton.PRIMARY)
-				&& (e.getClickCount() == 2);
+		// ƒ_ƒuƒ‹ƒNƒŠƒbƒN‚³‚ê‚½‚ç
+		boolean doubleClick = e.getButton().equals(MouseButton.PRIMARY) && (e.getClickCount() == 2);
 		if (doubleClick) {
-			calV.clearTestBox(); // testBox åˆæœŸåŒ–
-			String selectSt = calFileV.getListView().getSelectionModel()
-					.getSelectedItem();// é¸æŠã•ã‚ŒãŸã‚‚ã®
-			calFileM.setCurrentFileName(selectSt + ".txt"); // FilePathã‚’æ­£å¼åç§°ã§ç™»éŒ²
-			calFileV.getStage().hide(); // Windowé–‰ã˜ã‚‹
+			calV.clearTestBox(); // testBox ‰Šú‰»
+			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();// ‘I‘ğ‚³‚ê‚½‚à‚Ì
+			calM.setFileName(selectSt + ".txt");
+			// calFileM.setCurrentFileName(selectSt + ".txt"); //
+			// FilePath‚ğ³®–¼Ì‚Å“o˜^
+			calFileV.getStage().hide(); // Window•Â‚¶‚é
 
-			calFileM.readFile(); // ãƒ•ã‚¡ã‚¤ãƒ«è§£æ
+			// calFileM.readFile(); // ƒtƒ@ƒCƒ‹‰ğÍ
 
-			calV.showScoreList(true);// å…¥åŠ›æ¬„ãªã©è¡¨ç¤º
+			calV.showScoreList(true);// “ü—Í—“‚È‚Ç•\¦
 			calV.setTestBox();
 
 		}
-		// æ–‡ã‚’ã‚‚ã‚‰ã†
-		// Modelã¸æ¸¡ã—ã¦è§£æ
-		// Viewã«é€šçŸ¥
+		// •¶‚ğ‚à‚ç‚¤
+		// Model‚Ö“n‚µ‚Ä‰ğÍ
+		// View‚É’Ê’m
 
 	}
 }

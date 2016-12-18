@@ -10,48 +10,47 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ExamCalFileV {
-	private ExamCalFileM calFileM;
+	private ExamCalM calM;
 	private Stage stage;
 	private ListView<String> listView;
 
-	ExamCalFileV(){
-		//windowåˆæœŸè¨­å®š
+	ExamCalFileV() {
+		// window‰Šúİ’è
 		stage = new Stage();
 		stage.setWidth(700);
 		stage.setHeight(600);
-		stage.setTitle("ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é¸æŠ");
-		stage.initModality(Modality.APPLICATION_MODAL);//ä»–ç”»é¢é¸æŠä¸å¯
+		stage.setTitle("ƒtƒ@ƒCƒ‹‚ğ‘I‘ğ");
+		stage.initModality(Modality.APPLICATION_MODAL);// ‘¼‰æ–Ê‘I‘ğ•s‰Â
 		stage.show();
 
 		VBox root = new VBox();
 
-		listView = new ListView<>();//ãƒªã‚¹ãƒˆãƒ“ãƒ¥ãƒ¼
-		listView.setEditable(false);					//ç·¨é›†ä¸å¯
-		listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);	//å˜ä½“ã®ã¿é¸æŠå¯
+		listView = new ListView<>();// ƒŠƒXƒgƒrƒ…[
+		listView.setEditable(false); // •ÒW•s‰Â
+		listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); // ’P‘Ì‚Ì‚İ‘I‘ğ‰Â
 
 		root.getChildren().addAll(listView);
-		stage.setScene(new Scene(root));//è¡¨ç¤º
+		stage.setScene(new Scene(root));// •\¦
 	}
 
-	//(ãƒœã‚¿ãƒ³æŠ¼ã•ã‚ŒãŸæ™‚ãªã©)Modelã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒªã‚¹ãƒˆã‚’è¦‹ã¦è¡¨ç¤ºå†…å®¹å¤‰æ›´
-	void changeFileList(){
-		ArrayList<String> fileList = calFileM.getFileNameAr();
-		ObservableList<String> list = FXCollections.observableArrayList(fileList);//ä¸€è¦§å†…å®¹
+	// (ƒ{ƒ^ƒ“‰Ÿ‚³‚ê‚½‚È‚Ç)Model‚Ìƒtƒ@ƒCƒ‹ƒŠƒXƒg‚ğŒ©‚Ä•\¦“à—e•ÏX
+	void changeFileList() {
+		ArrayList<String> fileList = calM.getFileNameAr();
+		ObservableList<String> list = FXCollections.observableArrayList(fileList);// ˆê——“à—e
 		listView.setItems(list);
-
-		//è¦dirç‰ˆ
+		// —vdir”Å
 	}
 
-	ListView<String> getListView(){
+	ListView<String> getListView() {
 		return listView;
 	}
 
-	void bindModel(ExamCalFileM calFileM){
-		this.calFileM = calFileM;
-	}
-	Stage getStage(){
-		return stage;
+	void bindModel(ExamCalM calM) {
+		this.calM = calM;
 	}
 
+	Stage getStage() {
+		return stage;
+	}
 
 }

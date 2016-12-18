@@ -8,10 +8,10 @@ public class ExamAssistMainV {
 	ExamAssistMainV(Stage stage) {
 		VBox root = new VBox();
 
-		//ãƒœã‚¿ãƒ³
+		//ƒ{ƒ^ƒ“
 		button = new Button[2];
-		button[0] = new Button("ãƒã‚¤ãƒšãƒ¼ã‚¸");
-		button[1] = new Button("ãƒ†ã‚¹ãƒˆç‚¹è¨ˆç®—");
+		button[0] = new Button("ƒ}ƒCƒy[ƒW");
+		button[1] = new Button("ƒeƒXƒg“_ŒvZ");
 		for(int i=0; i<button.length; i++){
 			button[i].setId(i + "");
 		}

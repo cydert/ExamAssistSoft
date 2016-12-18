@@ -1,60 +1,16 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class ExamCalFileM {
 
 	private String fileHostPath = "data\\";
-	private String fileDirPath = ""; // è¡¨ç¤ºä¸­ã®dir
-	private String currentPath = ""; // é¸æŠä¸­ã®æ­£å¼Path
+	private String fileDirPath = ""; // •\¦’†‚Ìdir
+	private String currentPath = ""; // ‘I‘ğ’†‚Ì³®Path
 	private File[] fileList;
 
-	private String formula; // å¼ (Fileã‚ˆã‚Šå–å¾—
-	private ArrayList<String> testInfo; // ãƒ†ã‚¹ãƒˆå…¥åŠ›Boxã®ä½œæˆæ™‚ã®æƒ…å ±
-	private ArrayList<String> heijouInfo; // å¹³å¸¸ç‚¹å…¥åŠ›Box
-
-	void reloadFileList() {
-		checkHostFile();
-		File file = new File(fileHostPath + fileDirPath);
-		fileList = file.listFiles();
-	}
-
-	// ç¾åœ¨ä½ç½®ã®ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§è¡¨ç¤º
-	ArrayList<String> getFileNameAr() {
-		reloadFileList();
-		ArrayList<String> ar = new ArrayList<>();
-		for (int i = 0; i < fileList.length; i++) {
-			if (fileList[i].isFile()) {
-				ar.add((fileList[i].getName().split("\\.")[0])); // æ‹¡å¼µå­é™¤å»ã—ã¦è¿½åŠ 
-			}
-		}
-		return ar;
-	}
-
-	ArrayList<String> getDirListSt() {
-		if (fileList == null) {
-			reloadFileList();
-			System.out.println("null2");
-		}
-		ArrayList<String> ar = new ArrayList<>();
-		for (int i = 0; i < fileList.length; i++) {
-			if (fileList[i].isDirectory()) {
-				ar.add(fileList[i].toString());
-			}
-		}
-		return ar;
-	}
-
-	private void checkHostFile() {
-		File file = new File(fileHostPath);
-		if (!file.exists()) {
-			file.mkdir();
-		}
-		System.out.println("hos:" + fileHostPath);
-	}
+	private String formula; // ® (File‚æ‚èæ“¾
+	private ArrayList<String> testInfo; // ƒeƒXƒg“ü—ÍBox‚Ìì¬‚Ìî•ñ
+	private ArrayList<String> heijouInfo; // •½í“_“ü—ÍBox
 
 	void setFilePath(String path) {
 		fileDirPath = path;
@@ -90,45 +46,18 @@ public class ExamCalFileM {
 		} else {
 			int tmpIndex = currentPath.lastIndexOf("\\");
 			if (tmpIndex != -1) {
-				// é€”ä¸­dirå¤‰æ›´ã‚ã‚Œã°
+				// “r’†dir•ÏX‚ ‚ê‚Î
 				return currentPath.substring(tmpIndex + 1, currentPath.lastIndexOf("."));
 			}
 			return currentPath.substring(0, currentPath.lastIndexOf("."));
 		}
 	}
-	
-	String getFormula(){
+
+	String getFormula() {
 		return formula;
 	}
 
-	void readFile() {
-		testInfo = new ArrayList<>();
-		heijouInfo = new ArrayList<>();
-		// pathã¯currentPath
-		// formula, testInfo, heijouInfoã¸
-		File file = new File(currentPath);
-		try {
-			BufferedReader bfr = new BufferedReader(new InputStreamReader(new FileInputStream(file),"utf-8"));
-			formula = bfr.readLine();	//1è¡Œç›®
-			String tmp;
-			while ((tmp = bfr.readLine()) != null) {
-				if(tmp.charAt(0) == 'T'){	//testæƒ…å ±
-					testInfo.add(tmp.substring(tmp.indexOf(":")+1));	//:ä»¥é™è¿½åŠ 
-				}else if(tmp.charAt(0) == 'H'){	//å¹³å¸¸ç‚¹æƒ…å ±
-					heijouInfo.add(tmp.substring(tmp.indexOf(":")+1));
-				}else{
-					System.out.println("ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿err:"+ tmp);
-				}
-			}
-			bfr.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		}
-
-	}
-
-	String[] getExamList(){
+	String[] getExamList() {
 		return testInfo.toArray(new String[testInfo.size()]);
 	}
 

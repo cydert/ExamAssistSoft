@@ -10,7 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ExamCalV {
-	ExamCalFileM calFileM;
 	ExamCalM calM;
 	private Button[] button;
 	private BorderPane root;
@@ -19,44 +18,45 @@ public class ExamCalV {
 	private AnchorPane bottomBar;
 	private GridPane centerGrid;
 
-	private TextField[] examField;		//å…¥åŠ›ã—ãŸå€¤
-	private TextField examGoalScore;	//ç›®æ¨™ç‚¹
+	private TextField[] examField; // “ü—Í‚µ‚½’l
+	private TextField examGoalScore; // –Ú•W“_
+	private String[] heijou;
 
 	ExamCalV(Stage stage) {
 		root = new BorderPane();
 
-		// ãƒœã‚¿ãƒ³
+		// ƒ{ƒ^ƒ“
 		button = new Button[4];
-		button[0] = new Button("ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ");
-		button[1] = new Button("å¼ã®ç·¨é›†");
-		button[2] = new Button("ä¿å­˜");
-		button[3] = new Button("è¨ˆç®—");
-		// ãƒœã‚¿ãƒ³ã®å…±é€šåˆæœŸè¨­å®š
+		button[0] = new Button("ƒeƒ“ƒvƒŒ[ƒg");
+		button[1] = new Button("®‚Ì•ÒW");
+		button[2] = new Button("•Û‘¶");
+		button[3] = new Button("ŒvZ");
+		// ƒ{ƒ^ƒ“‚Ì‹¤’Ê‰Šúİ’è
 		for (int i = 0; i < button.length; i++) {
 			button[i].setId(i + "");
 		}
 
-		// ä¸Šã®ãƒœã‚¿ãƒ³
+		// ã‚Ìƒ{ƒ^ƒ“
 		AnchorPane.setLeftAnchor(button[0], 10.0);
 		AnchorPane.setRightAnchor(button[1], 10.0);
 		topBar = new AnchorPane();
 		topBar.getChildren().addAll(button[0], button[1]);
 
-		// ä¸­å¤®ã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
+		// ’†‰›‚ÌƒŒƒCƒAƒEƒg
 		vBoxScore = new VBox();
 		centerGrid = new GridPane();
 		centerGrid.setAlignment(Pos.CENTER);
-		centerGrid.setHgap(10);// åˆ—é–“
-		centerGrid.setVgap(10);// è¡Œé–“
+		centerGrid.setHgap(10);// —ñŠÔ
+		centerGrid.setVgap(10);// sŠÔ
 		vBoxScore.getChildren().add(centerGrid);
 
-		// ä¸‹ã®ãƒœã‚¿ãƒ³
+		// ‰º‚Ìƒ{ƒ^ƒ“
 		AnchorPane.setLeftAnchor(button[2], 10.0);
 		AnchorPane.setRightAnchor(button[3], 10.0);
 		bottomBar = new AnchorPane();
 		bottomBar.getChildren().addAll(button[2], button[3]);
 
-		// è¡¨ç¤º
+		// •\¦
 		root.setTop(topBar);
 		root.setCenter(vBoxScore);
 		root.setBottom(bottomBar);
@@ -64,25 +64,23 @@ public class ExamCalV {
 		stage.setScene(new Scene(root));
 	}
 
-	void setTestBox(){
-		String[] examList = calFileM.getExamList();	//ãƒ†ã‚¹ãƒˆåå–å¾— ä¾‹:å‰æœŸä¸­é–“
-		examField = new TextField[examList.length];	//å…¥åŠ›box ãƒ†ã‚¹ãƒˆç‚¹ç”¨
-		for(int i=0; i<examList.length; i++){
+	void setTestBox() {
+		String[] examList = calM.getExamList(); // ƒeƒXƒg–¼æ“¾ —á:‘OŠú’†ŠÔ
+		examField = new TextField[examList.length]; // “ü—Íbox ƒeƒXƒg“_—p
+		for (int i = 0; i < examList.length; i++) {
 			centerGrid.add(new Label(examList[i]), 0, i);
 			examField[i] = new TextField();
 			examField[i].setId(i + "");
 			centerGrid.add(examField[i], 1, i);
 		}
-		
+
 		examGoalScore = new TextField();
-		centerGrid.add(new Label("ç›®æ¨™ç‚¹"), 0, examList.length+2);
-		centerGrid.add(examGoalScore,1,examList.length+2);	
+		centerGrid.add(new Label("–Ú•W“_"), 0, examList.length + 2);
+		centerGrid.add(examGoalScore, 1, examList.length + 2);
 
 	}
-	String getExamGoalScore(){
-		return examGoalScore.getText();
-	}
-	void clearTestBox(){
+
+	void clearTestBox() {
 		centerGrid.getChildren().clear();
 	}
 
@@ -91,7 +89,7 @@ public class ExamCalV {
 		bottomBar.setVisible(isShow);
 	}
 
-	Button getButton(int id) { // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ç”¨
+	Button getButton(int id) { // ƒRƒ“ƒgƒ[ƒ‰[—p
 		for (int i = 0; i < button.length; i++) {
 			if (button[i].getId().equals(id + "")) {
 				return button[i];
@@ -101,22 +99,29 @@ public class ExamCalV {
 
 	}
 
-	TextField getExamTextFiled(int id){
-		for(int i=0; i<examField.length; i++){
-			if(examField[i].getId().equals(id + "")){
+	String getExamGoalScore() {
+		return examGoalScore.getText();
+	}
+
+	TextField getExamTextFiled(int id) {
+		for (int i = 0; i < examField.length; i++) {
+			if (examField[i].getId().equals(id + "")) {
 				return examField[i];
 			}
 		}
 		return null;
 	}
-	
-	TextField[] getExamTextField(){
+
+	TextField[] getExamTextField() {
 		return examField;
 	}
 
-	// å‚ç…§modelã®è¨­å®š
-	void bindModel(ExamCalFileM calFileM,ExamCalM calM) {
-		this.calFileM = calFileM;
+	String[] getHeijou() {
+		return heijou;
+	}
+
+	// QÆmodel‚Ìİ’è
+	void bindModel(ExamCalM calM) {
 		this.calM = calM;
 	}
 

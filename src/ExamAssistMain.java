@@ -3,19 +3,28 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class ExamAssistMain extends Application {
+	private ExamAssistMainV view;
 
 	@Override
 	public void start(Stage primaryStage) {
-		// åˆæœŸè¨­å®š
+		// ‰Šúİ’è
 		primaryStage.setWidth(800);
 		primaryStage.setHeight(400);
-		primaryStage.setTitle("å®šæœŸãƒ†ã‚¹ãƒˆæ”¯æ´ã‚½ãƒ•ãƒˆ");
-		primaryStage.show();//windowè¡¨ç¤º
+		primaryStage.setTitle("’èŠúƒeƒXƒgx‰‡ƒ\ƒtƒg");
+		primaryStage.show();//window•\¦
 
-		ExamAssistMainC mainC = new ExamAssistMainC(primaryStage);
+
+		view = new ExamAssistMainV(primaryStage);//ƒƒCƒ“•\¦
+
+		//ƒ{ƒ^ƒ““®ì
+		view.getButton(0).setOnAction(e -> toMypage());
+		view.getButton(1).setOnAction(e -> new ExamCalC(primaryStage));	//ŒvZ‰æ–ÊŠÇ—‚Ö
 
 	}
-
+	
+	public void toMypage(){
+		PublicView.showAlert("–¢À‘•");
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}

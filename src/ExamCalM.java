@@ -1,83 +1,89 @@
-public class ExamCalM {
-	private double[] examInput; // å…¥åŠ›ã—ãŸå€¤
-	private boolean[] isExamInput; // å…¥åŠ›ã•ã‚Œã¦ã‚‹ã‹
-	private String formula;	//å¼
-	private String goalScore;	//ç›®æ¨™ç‚¹
+import java.util.ArrayList;
 
+public class ExamCalM {
+	private double[] examInput; // “ü—Í‚µ‚½’l
+	private boolean[] isExamInput; // “ü—Í‚³‚ê‚Ä‚é‚©
+	private double[] heijou;
+	private String goalScore; // –Ú•W“_
+
+	private String fileHost = "data\\";
+	private String fileViewPath; // •\¦’†‚ÌfilePath
+	private String currentPath; // ‘I‘ğ’†‚Ì³®filePath
+	private ArrayList<String> fileAr;
+
+	ExamCalM() {
+		fileViewPath = fileHost;
+	}
+
+	void setInit(String goalScore, String[] examInput, String[] heijou) {
+		setExamList(examInput);
+		setGoalScore(goalScore);
+	}
+
+	// “ü—Í’lƒZƒbƒg
 	void setExamList(String[] examInput) {
-		this.examInput = new double[examInput.length];		//å…¥åŠ›ã—ãŸå€¤
-		this.isExamInput = new boolean[examInput.length];	//å…¥åŠ›ã•ã‚Œã¦ã‚‹ã‹
-		
+		this.examInput = new double[examInput.length]; // “ü—Í‚µ‚½’l
+		this.isExamInput = new boolean[examInput.length]; // “ü—Í‚³‚ê‚Ä‚é‚©
+
 		for (int i = 0; i < examInput.length; i++) {
-			if (examInput[i] == null || examInput[i].equals("")) {	//æœªå…¥åŠ›ãªã‚‰
+			if (examInput[i] == null || examInput[i].equals("")) { // –¢“ü—Í‚È‚ç
 				isExamInput[i] = false;
-			} else {			//å…¥åŠ›æ¸ˆã¿
+			} else { // “ü—ÍÏ‚İ
 				isExamInput[i] = true;
 				this.examInput[i] = Double.parseDouble(examInput[i]);
 			}
 		}
 	}
-	void setInit(String formula, String goalScore, String[] examInput){
-		setExamList(examInput);
-		setFormula(formula);
-		setGoalScore(goalScore);
-	}
-	
-	void setFormula(String formula){
-		this.formula = formula;
-	}
-	
-	void setGoalScore(String goalScore){
+
+	void setGoalScore(String goalScore) {
 		this.goalScore = goalScore;
 	}
-	
-	//å¼ã€å€¤ã‚’åˆ©ç”¨ã—ã¦è¨ˆç®—
-	void cal(){
-		String editFormula = formula;
-		//ãƒ†ã‚¹ãƒˆç‚¹ç½®ãæ›ãˆ
-			//å…¥åŠ›ç‚¹ç½®ãæ›ãˆ
-		for(int i=0; i<examInput.length; i++){
-			if(isExamInput[i]){
-				editFormula = changeSt(editFormula, 'T', examInput[i], i);
+
+	void setHeijou(String[] heijou) {
+		if (heijou == null) {
+			this.heijou = null;
+		} else {
+			this.heijou = new double[heijou.length];
+			for (int i = 0; i < heijou.length; i++) {
+				this.heijou[i] = Double.parseDouble(heijou[i]);
 			}
 		}
-		for(int i=0; i<examInput.length; i++){}
-			//editFormula = changeSt(editFormula,'T',5);
 	}
-	
-	
-	int getNotInput(){
-		int cnt = 0;
-		for(int i=0; i<isExamInput.length; i++){
-			cnt ++;
-		}
-		return cnt;
-	}
-	
-	String changeSt(String formula,char oldChar, double newD){
-		String tmp;
-		int index0 = formula.indexOf(oldChar);
-		tmp = formula.substring(0,index0);
-		
-		int index1 = formula.indexOf("]");
-		tmp = tmp + newD + formula.substring(index1+1);
-		System.out.println("tmp" + tmp);
-		return tmp;
-	}
-	
-	String changeSt(String formula, char oldChar, double newD, int id){
-		String tmp;
-		String changeSt = oldChar + "[" + id + "]";
-		int index0 = formula.indexOf(changeSt);
-		tmp = formula.substring(0,index0-1);
-		
-		int index1 = index0 + changeSt.length();
-		tmp = tmp + newD + formula.substring(index1);
-		System.out.println("tmp2:" + tmp);
-		return tmp;
-	}
-	
-	
-	
 
+	void setFileViewPath(String fileViewPath) {
+		this.fileViewPath += fileViewPath;
+	}
+
+	void setFileName(String fileName) {
+		currentPath = fileViewPath + fileName;
+	}
+
+	String getFilePath() {
+		return currentPath;
+	}
+
+	void clearFileViewPath() {
+		fileViewPath = fileHost;
+	}
+
+	ArrayList<String> getFileNameAr() {
+		return FileRead.getFileNameAr(fileViewPath);
+	}
+
+	String[] getExamList() {
+		return FileRead.readTestInfo(currentPath);
+	}
+
+	String getFormula() {
+		return FileRead.readFormula(currentPath);
+	}
+
+	// ŒvZ‚µ‚ÄŒ‹‰Ê‚ğexamInput‚Ö
+	void cal() {
+		String formula = getFormula();
+		Calculation.replaceExamScore(formula, examInput, isExamInput); // “ü—Í’l’u‚«Š·‚¦
+		if (heijou != null)
+			Calculation.replaceHeijouScore(formula, heijou); // •½í“_’u‚«Š·‚¦
+
+	}
 }
