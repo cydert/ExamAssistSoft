@@ -3,9 +3,12 @@ public class Calculation {
 
 	// “ü—Í“_’u‚«Š·‚¦
 	static String replaceExamScore(String formula, double[] examInput, boolean[] isExamInput) {
+		System.out.println("tmp0:" + formula);
 		for (int i = 0; i < examInput.length; i++) {
-			if (!isExamInput[i]) {
+			if (isExamInput[i]) {
 				formula = changeSt(formula, 'T', examInput[i], i);
+			}else{
+				formula = changeSt(formula, 'T', 50, i);	//TODO •Ï“®’u‚«Š·‚¦
 			}
 		}
 		// editFormula = changeSt(editFormula,'T',5);
@@ -35,7 +38,7 @@ public class Calculation {
 		String tmp;
 		String changeSt = oldChar + "[" + id + "]";
 		int index0 = formula.indexOf(changeSt);
-		tmp = formula.substring(0, index0 - 1);
+		tmp = formula.substring(0, index0);
 
 		int index1 = index0 + changeSt.length();
 		tmp = tmp + newD + formula.substring(index1);
