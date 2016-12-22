@@ -54,7 +54,14 @@ public class ExamCalC {
 			calM.setInit(calV.getExamGoalScore(), examList, calV.getHeijou());
 
 			// 計算後の値をもらす
-			calM.cal();
+			int ans = calM.cal();
+			for (int i = 0; i < examList.length; i++) {
+				if(! calM.getExamInput()[i])//もともと入力されてないなら
+					examList[i] = ans+"";	//値をセット
+			}
+			calM.setExamList(examList);
+			
+			
 		}
 
 	}

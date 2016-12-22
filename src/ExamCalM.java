@@ -77,23 +77,23 @@ public class ExamCalM {
 	String getFormula() {
 		return FileRead.readFormula(currentPath);
 	}
+	boolean[] getExamInput(){
+		return isExamInput;
+	}
 
 	// 計算して結果をexamInputへ
-	void cal() {
+	int cal() {
 		String formula = getFormula(); // 式を取得
 		String formulaTmp = Calculation.replaceHeijouScore(formula, heijou); // 平常点の置き換え
 		String formulaTmp2;
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 1000; i++) {
 			formulaTmp2 = Calculation.replaceExamScore(formulaTmp, examInput,
 					isExamInput, i); // 入力値置き換え
-			if (Double.parseDouble(goalScore) < Calculation
-					.calculation(formulaTmp2)) {
-				System.out.println(i);
-				return;
+			if (Double.parseDouble(goalScore) < Calculation.calculation(formulaTmp2)) {
+				return i;
 			}
 		}
-		// if (heijou != null)
-		// Calculation.replaceHeijouScore(formula, heijou); // 平常点置き換え
+		return 1000;
 
 	}
 }

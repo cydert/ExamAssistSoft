@@ -64,6 +64,7 @@ public class ExamCalV {
 		stage.setScene(new Scene(root));
 	}
 
+	//入力BOXの表示
 	void setTestBox() {
 		String[] examList = calM.getExamList(); // テスト名取得 例:前期中間
 		examField = new TextField[examList.length]; // 入力box テスト点用
@@ -79,7 +80,18 @@ public class ExamCalV {
 		centerGrid.add(examGoalScore, 1, examList.length + 2);
 
 	}
+	
+	void setTestInBox(){
+		String[] examList = calM.getExamList();
+		for(int i=0; i<examList.length; i++){
+			if(! calM.getExamInput()[i]){
+				//表示設定
+				
+			}
+		}
+	}
 
+	//テスト点のレイアウト削除
 	void clearTestBox() {
 		centerGrid.getChildren().clear();
 	}
@@ -99,6 +111,7 @@ public class ExamCalV {
 
 	}
 
+	//目標点取得
 	String getExamGoalScore() {
 		return examGoalScore.getText();
 	}
@@ -116,6 +129,7 @@ public class ExamCalV {
 		return examField;
 	}
 
+	//平常点取得
 	String[] getHeijou() {
 		return heijou;
 	}
