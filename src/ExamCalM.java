@@ -80,10 +80,20 @@ public class ExamCalM {
 
 	// 計算して結果をexamInputへ
 	void cal() {
-		String formula = getFormula();
-		Calculation.replaceExamScore(formula, examInput, isExamInput); // 入力値置き換え
-		if (heijou != null)
-			Calculation.replaceHeijouScore(formula, heijou); // 平常点置き換え
+		String formula = getFormula(); // 式を取得
+		String formulaTmp = Calculation.replaceHeijouScore(formula, heijou); // 平常点の置き換え
+		String formulaTmp2;
+		for (int i = 0; i < 100; i++) {
+			formulaTmp2 = Calculation.replaceExamScore(formulaTmp, examInput,
+					isExamInput, i); // 入力値置き換え
+			if (Double.parseDouble(goalScore) < Calculation
+					.calculation(formulaTmp2)) {
+				System.out.println(i);
+				return;
+			}
+		}
+		// if (heijou != null)
+		// Calculation.replaceHeijouScore(formula, heijou); // 平常点置き換え
 
 	}
 }
