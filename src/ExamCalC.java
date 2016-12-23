@@ -38,12 +38,11 @@ public class ExamCalC {
 		PublicView.showAlert("未実装です");
 	}
 
-	// 計算ボタン
+	// 計算ボタン押したら
 	void cal() {
 		if (calV.getExamGoalScore().equals("")) { // 目標点未入力
 			PublicView.showAlert("目標点を入力してください");
 		} else {
-			PublicView.showAlert("未実装");
 			// 入力Box取得
 			String[] examList = new String[calV.getExamTextField().length]; // テスト入力欄
 			for (int i = 0; i < examList.length; i++) {
@@ -55,13 +54,14 @@ public class ExamCalC {
 
 			// 計算後の値をもらす
 			int ans = calM.cal();
+			System.out.println(ans);
 			for (int i = 0; i < examList.length; i++) {
-				if(! calM.getExamInput()[i])//もともと入力されてないなら
-					examList[i] = ans+"";	//値をセット
+				if (!calM.getExamInput()[i])// もともと入力されてないなら
+					examList[i] = ans + ""; // 値をセット
 			}
-			calM.setExamList(examList);
-			
-			
+			calM.setExamList(examList,false);
+			calV.setNewScoewInBox();
+
 		}
 
 	}

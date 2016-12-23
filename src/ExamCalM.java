@@ -16,20 +16,22 @@ public class ExamCalM {
 	}
 
 	void setInit(String goalScore, String[] examInput, String[] heijou) {
-		setExamList(examInput);
+		setExamList(examInput,true);
 		setGoalScore(goalScore);
+		setHeijou(heijou);
 	}
 
 	// 入力値セット
-	void setExamList(String[] examInput) {
+	void setExamList(String[] examInput,boolean clearInputFlag) {
 		this.examInput = new double[examInput.length]; // 入力した値
 		this.isExamInput = new boolean[examInput.length]; // 入力されてるか
 
+
 		for (int i = 0; i < examInput.length; i++) {
 			if (examInput[i] == null || examInput[i].equals("")) { // 未入力なら
-				isExamInput[i] = false;
+				if(clearInputFlag)	isExamInput[i] = false;
 			} else { // 入力済み
-				isExamInput[i] = true;
+				if(clearInputFlag)	isExamInput[i] = true;
 				this.examInput[i] = Double.parseDouble(examInput[i]);
 			}
 		}
@@ -62,6 +64,10 @@ public class ExamCalM {
 		return currentPath;
 	}
 
+	double[] getExamScoreAr(){
+		return examInput;
+	}
+
 	void clearFileViewPath() {
 		fileViewPath = fileHost;
 	}
@@ -70,14 +76,15 @@ public class ExamCalM {
 		return FileRead.getFileNameAr(fileViewPath);
 	}
 
-	String[] getExamList() {
+	String[] getExamInfoList() {
 		return FileRead.readTestInfo(currentPath);
 	}
 
 	String getFormula() {
 		return FileRead.readFormula(currentPath);
 	}
-	boolean[] getExamInput(){
+
+	boolean[] getExamInput() {
 		return isExamInput;
 	}
 
@@ -87,9 +94,9 @@ public class ExamCalM {
 		String formulaTmp = Calculation.replaceHeijouScore(formula, heijou); // 平常点の置き換え
 		String formulaTmp2;
 		for (int i = 0; i < 1000; i++) {
-			formulaTmp2 = Calculation.replaceExamScore(formulaTmp, examInput,
-					isExamInput, i); // 入力値置き換え
-			if (Double.parseDouble(goalScore) < Calculation.calculation(formulaTmp2)) {
+			formulaTmp2 = Calculation.replaceExamScore(formulaTmp, examInput, isExamInput, i); // 入力値置き換え
+			if (Double.parseDouble(goalScore) <= Calculation.calculation(formulaTmp2)) {
+				//計算結果が目標点以上なら代入した値を返す
 				return i;
 			}
 		}

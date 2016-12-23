@@ -66,7 +66,7 @@ public class ExamCalV {
 
 	//入力BOXの表示
 	void setTestBox() {
-		String[] examList = calM.getExamList(); // テスト名取得 例:前期中間
+		String[] examList = calM.getExamInfoList(); // テスト名取得 例:前期中間
 		examField = new TextField[examList.length]; // 入力box テスト点用
 		for (int i = 0; i < examList.length; i++) {
 			centerGrid.add(new Label(examList[i]), 0, i);
@@ -80,13 +80,14 @@ public class ExamCalV {
 		centerGrid.add(examGoalScore, 1, examList.length + 2);
 
 	}
-	
-	void setTestInBox(){
-		String[] examList = calM.getExamList();
-		for(int i=0; i<examList.length; i++){
-			if(! calM.getExamInput()[i]){
+
+	//未入力場所に計算結果を表示
+	void setNewScoewInBox(){
+		double[] examScoreAr = calM.getExamScoreAr();
+		for(int i=0; i<examScoreAr.length; i++){
+			if(! calM.getExamInput()[i]){	//未入力なら
 				//表示設定
-				
+				examField[i].setPromptText( (int)(examScoreAr[i])+"");
 			}
 		}
 	}
