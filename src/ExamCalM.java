@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class ExamCalM {
 	private double[] examInput; // “ü—Í‚µ‚½’l
 	private boolean[] isExamInput; // “ü—Í‚³‚ê‚Ä‚é‚©
-	private double[] heijou;
+	private int[] heijou;
 	private String goalScore; // –Ú•W“_
 
 	private String fileHost = "data\\";
@@ -15,7 +15,7 @@ public class ExamCalM {
 		fileViewPath = fileHost;
 	}
 
-	void setInit(String goalScore, String[] examInput, String[] heijou) {
+	void setInit(String goalScore, String[] examInput, int[] heijou) {
 		setExamList(examInput,true);
 		setGoalScore(goalScore);
 		setHeijou(heijou);
@@ -41,15 +41,8 @@ public class ExamCalM {
 		this.goalScore = goalScore;
 	}
 
-	void setHeijou(String[] heijou) {
-		if (heijou == null) {
-			this.heijou = null;
-		} else {
-			this.heijou = new double[heijou.length];
-			for (int i = 0; i < heijou.length; i++) {
-				this.heijou[i] = Double.parseDouble(heijou[i]);
-			}
-		}
+	void setHeijou(int[] heijou) {
+		this.heijou = heijou;
 	}
 
 	void setFileViewPath(String fileViewPath) {
@@ -78,6 +71,10 @@ public class ExamCalM {
 
 	String[] getExamInfoList() {
 		return FileRead.readTestInfo(currentPath);
+	}
+
+	String[] getHeijouInfoList(){
+		return FileRead.readHeijou(currentPath);
 	}
 
 	String getFormula() {

@@ -2,6 +2,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -18,9 +19,9 @@ public class ExamCalV {
 	private AnchorPane bottomBar;
 	private GridPane centerGrid;
 
-	private TextField[] examField; // 入力した値
+	private TextField[] examField; // exam入力した値
+	private Slider[] heijouSlider;
 	private TextField examGoalScore; // 目標点
-	private String[] heijou;
 
 	ExamCalV(Stage stage) {
 		root = new BorderPane();
@@ -66,18 +67,33 @@ public class ExamCalV {
 
 	//入力BOXの表示
 	void setTestBox() {
+		int index=0;	//追加された行数
 		String[] examList = calM.getExamInfoList(); // テスト名取得 例:前期中間
-		examField = new TextField[examList.length]; // 入力box テスト点用
+		examField = new TextField[examList.length]; // 入力boxの配列 テスト点用
 		for (int i = 0; i < examList.length; i++) {
-			centerGrid.add(new Label(examList[i]), 0, i);
+			centerGrid.add(new Label(examList[i].split(",")[0]), 0, i);
 			examField[i] = new TextField();
 			examField[i].setId(i + "");
 			centerGrid.add(examField[i], 1, i);
+			index++;
 		}
 
+		index++;
+		String[] heijouList = calM.getHeijouInfoList();
+		heijouSlider = new Slider[heijouList.length];
+		for(int i=0; i<heijouList.length; i++){
+			int max = Integer.parseInt(heijouList[i].split(",")[1]);
+			String name = heijouList[i].split(",")[0];
+			heijouSlider[i] = new Slider(0,max,100);
+			centerGrid.add(new Label( name ), 0, index);
+			centerGrid.add(heijouSlider[i], 1, index);
+		}
+
+
+		//目標点Box
 		examGoalScore = new TextField();
-		centerGrid.add(new Label("目標点"), 0, examList.length + 2);
-		centerGrid.add(examGoalScore, 1, examList.length + 2);
+		centerGrid.add(new Label("目標点"), 0, index + 2);
+		centerGrid.add(examGoalScore, 1, index + 2);
 
 	}
 
@@ -131,7 +147,11 @@ public class ExamCalV {
 	}
 
 	//平常点取得
-	String[] getHeijou() {
+	int[] getHeijou() {
+		int[] heijou = new int[heijouSlider.length];
+		for(int i=0; i<heijou.length; i++){
+			heijou[i] = (int)heijouSlider[i].getValue();
+		}
 		return heijou;
 	}
 

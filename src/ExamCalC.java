@@ -74,14 +74,13 @@ public class ExamCalC {
 			calV.clearTestBox(); // testBox 初期化
 			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();// 選択されたもの
 			calM.setFileName(selectSt + ".txt");
-			// calFileM.setCurrentFileName(selectSt + ".txt"); //
 			// FilePathを正式名称で登録
 			calFileV.getStage().hide(); // Window閉じる
 
 			// calFileM.readFile(); // ファイル解析
 
 			calV.showScoreList(true);// 入力欄など表示
-			calV.setTestBox();
+			calV.setTestBox();		//入力欄などの作成、表示
 
 		}
 		// 文をもらう
