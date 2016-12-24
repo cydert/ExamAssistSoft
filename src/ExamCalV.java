@@ -78,7 +78,8 @@ public class ExamCalV {
 			index++;
 		}
 
-		index++;
+		index++;//1行開ける
+		//平常点のSlider設置
 		String[] heijouList = calM.getHeijouInfoList();
 		heijouSlider = new Slider[heijouList.length];
 		for(int i=0; i<heijouList.length; i++){
@@ -87,6 +88,7 @@ public class ExamCalV {
 			heijouSlider[i] = new Slider(0,max,100);
 			centerGrid.add(new Label( name ), 0, index);
 			centerGrid.add(heijouSlider[i], 1, index);
+			index++;
 		}
 
 
