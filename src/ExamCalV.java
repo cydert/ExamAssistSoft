@@ -25,6 +25,7 @@ public class ExamCalV {
 
 	ExamCalV(Stage stage) {
 		root = new BorderPane();
+		root.setOnMouseClicked(e -> root.requestFocus());
 
 		// ボタン
 		button = new Button[4];
@@ -63,6 +64,7 @@ public class ExamCalV {
 		root.setBottom(bottomBar);
 		showScoreList(false);
 		stage.setScene(new Scene(root));
+
 	}
 
 	//入力BOXの表示
@@ -94,8 +96,9 @@ public class ExamCalV {
 
 		//目標点Box
 		examGoalScore = new TextField();
-		centerGrid.add(new Label("目標点"), 0, index + 2);
+		centerGrid.add(new Label("目標評価点"), 0, index + 2);
 		centerGrid.add(examGoalScore, 1, index + 2);
+
 
 	}
 
