@@ -7,9 +7,9 @@ public class ExamCalM {
 	private String goalScore; // 目標点
 
 	private String fileHost = "data\\";
-	private String fileViewPath; // 表示中のfilePath
+	private String fileViewPath; // 一覧表示中のfilePath
 	private String currentPath; // 選択中の正式filePath
-	private ArrayList<String> fileAr;
+	private String fileName;	//選択中のfileName
 
 	ExamCalM() {
 		fileViewPath = fileHost;
@@ -50,7 +50,8 @@ public class ExamCalM {
 	}
 
 	void setFileName(String fileName) {
-		currentPath = fileViewPath + fileName;
+		currentPath = fileViewPath + fileName + ".txt";
+		this.fileName = fileName;
 	}
 
 	String getFilePath() {
@@ -69,6 +70,9 @@ public class ExamCalM {
 		return FileRead.getFileNameAr(fileViewPath);
 	}
 
+	String getFileName(){
+		return fileName;
+	}
 	String[] getExamInfoList() {
 		return FileRead.readTestInfo(currentPath);
 	}

@@ -18,6 +18,7 @@ public class ExamCalC {
 		calV.getButton(1).setOnAction(e -> editFx()); // 式編集ボタン
 		calV.getButton(2).setOnAction(e -> save()); // 保存ボタン
 		calV.getButton(3).setOnAction(e -> cal()); // 計算ボタン
+		calV.getButton(4).setOnAction(e -> showFormula()); // 表示中の式を表示
 
 	}
 
@@ -59,11 +60,10 @@ public class ExamCalC {
 				if (!calM.getExamInput()[i])// もともと入力されてないなら
 					examList[i] = ans + ""; // 値をセット
 			}
-			calM.setExamList(examList,false);
+			calM.setExamList(examList, false);
 			calV.setNewScoewInBox();
 
 		}
-
 	}
 
 	// ファイル選択されたら
@@ -73,19 +73,17 @@ public class ExamCalC {
 		if (doubleClick) {
 			calV.clearTestBox(); // testBox 初期化
 			String selectSt = calFileV.getListView().getSelectionModel().getSelectedItem();// 選択されたもの
-			calM.setFileName(selectSt + ".txt");
+			calM.setFileName(selectSt);
 			// FilePathを正式名称で登録
 			calFileV.getStage().hide(); // Window閉じる
 
-			// calFileM.readFile(); // ファイル解析
-
 			calV.showScoreList(true);// 入力欄など表示
-			calV.setTestBox();		//入力欄などの作成、表示
+			calV.setTestBox(); // 入力欄などの作成、表示
 
 		}
-		// 文をもらう
-		// Modelへ渡して解析
-		// Viewに通知
+	}
 
+	void showFormula() {
+		PublicView.showInfoAlert(calM.getFormula());
 	}
 }

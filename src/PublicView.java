@@ -10,4 +10,12 @@ public class PublicView {
 		return alert;
 	}
 
+	public static Alert showInfoAlert(String msg){
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Info");
+		alert.setHeaderText(msg);
+		alert.show();
+		return alert;
+	}
+
 }
