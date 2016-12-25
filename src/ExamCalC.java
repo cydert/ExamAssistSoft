@@ -19,6 +19,7 @@ public class ExamCalC {
 		calV.getButton(2).setOnAction(e -> save()); // 保存ボタン
 		calV.getButton(3).setOnAction(e -> cal()); // 計算ボタン
 		calV.getButton(4).setOnAction(e -> showFormula()); // 表示中の式を表示
+		calV.getButton(5).setOnAction(e -> backKey());
 
 	}
 
@@ -85,5 +86,9 @@ public class ExamCalC {
 
 	void showFormula() {
 		PublicView.showInfoAlert(calM.getFormula());
+	}
+
+	void backKey(){
+		PublicView.reShow(PublicView.sceneStack.pop());
 	}
 }

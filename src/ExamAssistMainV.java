@@ -17,6 +17,7 @@ public class ExamAssistMainV {
 		}
 
 		root.getChildren().addAll(button);
+
 		stage.setScene(new Scene(root));
 	}
 

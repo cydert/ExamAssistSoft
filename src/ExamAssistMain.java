@@ -12,7 +12,7 @@ public class ExamAssistMain extends Application {
 		primaryStage.setHeight(400);
 		primaryStage.setTitle("定期テスト支援ソフト");
 		primaryStage.show();//window表示
-
+		PublicView.bindStage(primaryStage);
 
 		view = new ExamAssistMainV(primaryStage);//メイン表示
 
@@ -21,7 +21,7 @@ public class ExamAssistMain extends Application {
 		view.getButton(1).setOnAction(e -> new ExamCalC(primaryStage));	//計算画面管理へ
 
 	}
-	
+
 	public void toMypage(){
 		PublicView.showAlert("未実装");
 	}

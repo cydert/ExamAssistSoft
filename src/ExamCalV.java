@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class ExamCalV {
@@ -26,24 +27,28 @@ public class ExamCalV {
 		root.setOnMouseClicked(e -> root.requestFocus()); // フォーカスがtextFieldから外れるように
 
 		// ボタン
-		button = new Button[5];
+		button = new Button[6];
 		button[0] = new Button("テンプレート");
 		button[1] = new Button("式の編集");
 		button[2] = new Button("保存");
 		button[3] = new Button("計算");
 		button[4] = new Button("科目名");
+		button[5] = new Button("←"); // TODO バックボタン
 		// ボタンの共通初期設定
 		for (int i = 0; i < button.length; i++) {
 			button[i].setId(i + "");
 		}
 
 		// 上のボタン
-		AnchorPane.setLeftAnchor(button[0], 10.0);
-		AnchorPane.setRightAnchor(button[1], 10.0);
+		HBox topLeft = new HBox(), topCenter = new HBox(), topRight = new HBox();
+		topCenter.setAlignment(Pos.CENTER);
 		topBar = new BorderPane();
-		topBar.setLeft(button[0]);
-		topBar.setCenter(button[4]);
-		topBar.setRight(button[1]);
+		topLeft.getChildren().addAll(button[5], button[0]);
+		topCenter.getChildren().addAll(button[4]);
+		topRight.getChildren().addAll(button[1]);
+		topBar.setLeft(topLeft);
+		topBar.setCenter(topCenter);
+		topBar.setRight(topRight);
 
 		// 中央のレイアウト
 		centerGrid = new GridPane();
@@ -62,6 +67,7 @@ public class ExamCalV {
 		root.setCenter(centerGrid);
 		root.setBottom(bottomBar);
 		showScoreList(false);
+		PublicView.sceneStack.push(stage.getScene());
 		stage.setScene(new Scene(root));
 
 	}
@@ -97,7 +103,7 @@ public class ExamCalV {
 		centerGrid.add(new Label("目標評価点"), 0, index + 2);
 		centerGrid.add(examGoalScore, 1, index + 2);
 
-		//教科名を表示
+		// 教科名を表示
 		button[4].setText(calM.getFileName());
 	}
 
