@@ -2,6 +2,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -18,9 +19,11 @@ public class ExamCalV {
 	private AnchorPane bottomBar;
 	private GridPane centerGrid;
 
-	private TextField[] examField; // exam入力した値
+	private NumTextField[] examField; // exam入力した値
 	private Slider[] heijouSlider;
 	private TextField examGoalScore; // 目標点
+
+	private MenuBar menubar;
 
 	ExamCalV(Stage stage) {
 		root = new BorderPane();
@@ -33,7 +36,7 @@ public class ExamCalV {
 		button[2] = new Button("保存");
 		button[3] = new Button("計算");
 		button[4] = new Button("科目名");
-		button[5] = new Button("←"); // TODO バックボタン
+		button[5] = new Button("←");
 		// ボタンの共通初期設定
 		for (int i = 0; i < button.length; i++) {
 			button[i].setId(i + "");
@@ -76,10 +79,10 @@ public class ExamCalV {
 	void setTestBox() {
 		int index = 0; // 追加された行数
 		String[] examList = calM.getExamInfoList(); // テスト名取得 例:前期中間
-		examField = new TextField[examList.length]; // 入力boxの配列 テスト点用
+		examField = new NumTextField[examList.length]; // 入力boxの配列 テスト点用
 		for (int i = 0; i < examList.length; i++) {
 			centerGrid.add(new Label(examList[i].split(",")[0]), 0, i);
-			examField[i] = new TextField();
+			examField[i] = new NumTextField();
 			examField[i].setId(i + "");
 			centerGrid.add(examField[i], 1, i);
 			index++;
@@ -172,4 +175,25 @@ public class ExamCalV {
 		this.calM = calM;
 	}
 
+}
+
+//数字専用TextField
+class NumTextField extends TextField {
+	@Override
+	public void replaceText(final int start, final int end, final String text) {
+		if (validate(text)) {
+			super.replaceText(start, end, text);
+		}
+	}
+
+	@Override
+	public void replaceSelection(final String text) {
+		if (validate(text)) {
+			super.replaceSelection(text);
+		}
+	}
+
+	private boolean validate(final String text) {
+		return text.matches("[0-9]*");
+	}
 }

@@ -24,12 +24,12 @@ public class ExamCalM {
 	// 入力値セット
 	void setExamList(String[] examInput,boolean clearInputFlag) {
 		this.examInput = new double[examInput.length]; // 入力した値
-		this.isExamInput = new boolean[examInput.length]; // 入力されてるか
-
+		if(isExamInput == null || clearInputFlag)	//入力チェック一覧
+			this.isExamInput = new boolean[examInput.length];
 
 		for (int i = 0; i < examInput.length; i++) {
-			if (examInput[i] == null || examInput[i].equals("")) { // 未入力なら
-				if(clearInputFlag)	isExamInput[i] = false;
+			if (examInput[i] == null || examInput[i].equals("")) { // 未入力
+				if(clearInputFlag)	isExamInput[i] = false;	//入力欄チェック
 			} else { // 入力済み
 				if(clearInputFlag)	isExamInput[i] = true;
 				this.examInput[i] = Double.parseDouble(examInput[i]);
