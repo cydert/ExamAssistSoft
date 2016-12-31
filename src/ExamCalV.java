@@ -1,8 +1,11 @@
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -29,6 +32,30 @@ public class ExamCalV {
 		root = new BorderPane();
 		root.setOnMouseClicked(e -> root.requestFocus()); // フォーカスがtextFieldから外れるように
 
+		menubar = new MenuBar();
+		Menu[] menu = new Menu[2];
+		menu[0] = new Menu("ファイル");
+		menu[1] = new Menu("編集");
+
+		MenuItem[][] item = new MenuItem[2][5];
+		item[0][0] = new MenuItem("テンプレートを開く");
+		item[0][1] = new MenuItem("上書き保存");
+		item[0][2] = new MenuItem("別名で保存");
+		item[0][3] = new MenuItem("トップ画面に戻る");
+		item[0][4] = new MenuItem("終了");
+		item[1][0] = new MenuItem("テンプレートの作成");
+		item[1][1] = new MenuItem("テンプレートの編集");
+		item[1][2] = new MenuItem("式の作成");
+		item[1][3] = new MenuItem("式の編集");
+
+		for (int i = 0; i < menu.length; i++) {
+			for (int j = 0; j < item[0].length; j++) {
+				if(item[i][j] == null) break;
+				menu[i].getItems().add(item[i][j]);
+			}
+		}
+		menubar.getMenus().addAll(menu);
+
 		// ボタン
 		button = new Button[6];
 		button[0] = new Button("テンプレート");
@@ -41,7 +68,6 @@ public class ExamCalV {
 		for (int i = 0; i < button.length; i++) {
 			button[i].setId(i + "");
 		}
-
 		// 上のボタン
 		HBox topLeft = new HBox(), topCenter = new HBox(), topRight = new HBox();
 		topCenter.setAlignment(Pos.CENTER);
@@ -49,6 +75,8 @@ public class ExamCalV {
 		topLeft.getChildren().addAll(button[5], button[0]);
 		topCenter.getChildren().addAll(button[4]);
 		topRight.getChildren().addAll(button[1]);
+		BorderPane.setMargin(menubar, new Insets(0, 0, 5, 0));
+		topBar.setTop(menubar);
 		topBar.setLeft(topLeft);
 		topBar.setCenter(topCenter);
 		topBar.setRight(topRight);
@@ -177,7 +205,7 @@ public class ExamCalV {
 
 }
 
-//数字専用TextField
+// 数字専用TextField
 class NumTextField extends TextField {
 	@Override
 	public void replaceText(final int start, final int end, final String text) {
