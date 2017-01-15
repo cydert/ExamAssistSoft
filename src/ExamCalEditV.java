@@ -48,7 +48,7 @@ public class ExamCalEditV {
 		mathB[10].setMinHeight(BTSIZE);
 		mathGrid.add(mathB[10], 1, 3);
 		// 演算キー
-		String[] calS = { "/", "*", "-", "+", "(", ")", "DEL", "C", "テスト点", "平常点" };
+		String[] calS = { "/", "*", "-", "+", "(", ")", "DEL", "C", "←", "→", "テスト点", "平常点" };
 		calB = new Button[calS.length];
 		for (int i = 0, x = 0, y = 0; i < calB.length; i++) {
 			calB[i] = new Button(calS[i]);
@@ -99,18 +99,20 @@ public class ExamCalEditV {
 	}
 
 	void delFormula() {
-		if(caletI > 0) caletI --;
+		if (caletI > 0)
+			caletI--;
 		txFormula.requestFocus();
 		txFormula.selectPositionCaret(caletI);
 		if (txFormula.getText().equals(""))
 			caletI = 0;
 		else {
-			txFormula.replaceText(caletI, caletI+1, "");
+			txFormula.replaceText(caletI, caletI + 1, "");
 		}
 	}
-	void clearFormula(){
+
+	void clearFormula() {
 		txFormula.setText("");
-		caletI =0;
+		caletI = 0;
 		txFormula.requestFocus();
 		txFormula.selectPositionCaret(caletI);
 	}
