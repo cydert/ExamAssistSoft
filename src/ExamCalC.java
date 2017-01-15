@@ -3,11 +3,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class ExamCalC {
+	Stage stage;
 	ExamCalV calV; // 計算画面
 	ExamCalFileV calFileV; // ファイル管理画面
 	ExamCalM calM;
 
 	ExamCalC(Stage stage) {
+		this.stage = stage;
 		calV = new ExamCalV(stage);
 		calM = new ExamCalM();
 
@@ -33,7 +35,31 @@ public class ExamCalC {
 	}
 
 	void editFx() {
-		PublicView.showAlert("未実装です");
+		ExamCalEditV exV = new ExamCalEditV(stage);
+		exV.getFormula().setOnMouseClicked(e -> ExamCalEditV.caletI = exV.getFormula().getCaretPosition());
+		for (int i = 0; i < exV.getMathBt().length; i++) {
+			String input = exV.getMathBt()[i].getText();
+			exV.getMathBt()[i].setOnAction(e -> exV.addFormula(input)); // 入力したものをそのまま表示
+
+		}
+		for (int i = 0; i < exV.getCalB().length; i++) {
+			String input = exV.getCalB()[i].getText(); // キャレット移動か演算子
+			exV.getCalB()[i].setOnAction(e -> {
+				if (input.equals("←")) {
+					ExamCalEditV.caletI--;
+					exV.showCallet();
+				} else if (input.equals("→")) {
+					ExamCalEditV.caletI++;
+					exV.showCallet();
+				} else if (input.equals("DEL")) {
+					exV.delFormula();
+				}else if(input.equals("C")){
+					exV.clearFormula();
+				} else {
+					exV.addFormula(input);// 演算子
+				}
+			});
+		}
 	}
 
 	void save() {
@@ -88,7 +114,7 @@ public class ExamCalC {
 		PublicView.showInfoAlert(calM.getFormula());
 	}
 
-	void backKey(){
+	void backKey() {
 		PublicView.reShow(PublicView.sceneStack.pop());
 	}
 }

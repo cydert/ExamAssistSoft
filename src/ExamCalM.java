@@ -11,6 +11,8 @@ public class ExamCalM {
 	private String currentPath; // ‘I‘ğ’†‚Ì³®filePath
 	private String fileName;	//‘I‘ğ’†‚ÌfileName
 
+	private String editFormula;
+
 	ExamCalM() {
 		fileViewPath = fileHost;
 	}
@@ -102,6 +104,10 @@ public class ExamCalM {
 			}
 		}
 		return 1000;
+
+	}
+
+	void makeTxFormula(){
 
 	}
 }
