@@ -55,6 +55,13 @@ public class ExamCalC {
 					exV.delFormula();
 				}else if(input.equals("C")){
 					exV.clearFormula();
+				}else if(input.equals("テスト点")){
+					AddExamButtonConfig config = new AddExamButtonConfig();
+					config.getConfirm().setOnAction(ev ->{
+						exV.addTestBt(config.getText());
+						config.close();
+					});
+
 				} else {
 					exV.addFormula(input);// 演算子
 				}

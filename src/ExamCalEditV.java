@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ExamCalEditV {
@@ -16,6 +17,7 @@ public class ExamCalEditV {
 	Stage stage;
 	BorderPane root = new BorderPane();
 	TextField txName = new TextField();
+	HBox formulaH = new HBox();
 	FormulaTextField txFormula = new FormulaTextField();
 	GridPane mathGrid = new GridPane();
 	GridPane calGrid = new GridPane();
@@ -67,7 +69,9 @@ public class ExamCalEditV {
 		topH.setAlignment(Pos.CENTER);
 		Label lb = new Label("教科名:");
 		topH.getChildren().addAll(lb, txName);
-		topV.getChildren().addAll(topH, txFormula);
+		formulaH.getChildren().add(txFormula);
+		formulaH.setAlignment(Pos.CENTER);
+		topV.getChildren().addAll(topH, formulaH);
 		root.setTop(topV);
 		HBox centerH = new HBox();
 		centerH.setAlignment(Pos.CENTER);
@@ -125,6 +129,11 @@ public class ExamCalEditV {
 		txFormula.requestFocus();
 		txFormula.positionCaret(caletI);
 	}
+
+	void addTestBt(String name){
+		formulaH.getChildren().add(new Button(name));
+
+	}
 }
 
 // 式専用入力欄
@@ -179,4 +188,39 @@ class FormulaTextField extends TextField {
 	private boolean cal(final String text) {
 		return text.matches("[/\\*\\-\\+\\.]");
 	}
+}
+
+class AddExamButtonConfig{
+	Stage stage;
+	Button confirm = new Button("確定");
+	TextField txF = new TextField();
+	public AddExamButtonConfig() {
+		stage = new Stage();
+		stage.setWidth(600);
+		stage.setHeight(300);
+		stage.setTitle("設定");
+		stage.initModality(Modality.APPLICATION_MODAL);// 他画面選択不可
+		stage.show();
+
+		VBox root = new VBox();
+		HBox under = new HBox();
+		under.setAlignment(Pos.TOP_RIGHT);
+		under.getChildren().add(confirm);
+		HBox  center = new HBox();
+		center.setAlignment(Pos.CENTER);
+		center.getChildren().addAll(new Label("テスト名:"),txF);
+		root.getChildren().addAll(center,under);
+		stage.setScene(new Scene(root));
+	}
+	Button getConfirm(){
+		return confirm;
+	}
+	String getText(){
+		return txF.getText();
+	}
+	void close(){
+		stage.close();
+	}
+
+
 }
