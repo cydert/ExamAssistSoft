@@ -93,7 +93,7 @@ public class ExamCalEditV {
 
 	void addFormula(String addTx) {
 		txFormula.requestFocus();
-		txFormula.selectPositionCaret(caletI);
+		txFormula.positionCaret(caletI);
 		txFormula.replaceText(caletI, caletI, addTx);
 
 	}
@@ -102,7 +102,7 @@ public class ExamCalEditV {
 		if (caletI > 0)
 			caletI--;
 		txFormula.requestFocus();
-		txFormula.selectPositionCaret(caletI);
+		txFormula.positionCaret(caletI);
 		if (txFormula.getText().equals(""))
 			caletI = 0;
 		else {
@@ -114,7 +114,7 @@ public class ExamCalEditV {
 		txFormula.setText("");
 		caletI = 0;
 		txFormula.requestFocus();
-		txFormula.selectPositionCaret(caletI);
+		txFormula.positionCaret(caletI);
 	}
 
 	void showCallet() {
@@ -123,7 +123,7 @@ public class ExamCalEditV {
 		else if (caletI > txFormula.getText().length())
 			caletI = txFormula.getText().length();
 		txFormula.requestFocus();
-		txFormula.selectPositionCaret(caletI);
+		txFormula.positionCaret(caletI);
 	}
 }
 
