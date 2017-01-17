@@ -188,6 +188,12 @@ public class ExamCalEditV {
 
 // éÆêÍópì¸óÕóì
 class FormulaTextField extends TextField {
+	private int width = 40;
+	public FormulaTextField() {
+		super();
+		setPrefWidth(width);
+		setPromptText("éÆ");
+	}
 	@Override
 	public void replaceText(final int start, final int end, final String text) {
 		System.out.println(start + " " + end + " " + text);
@@ -199,7 +205,13 @@ class FormulaTextField extends TextField {
 				} else {
 					ExamCalEditV.caletI[0]--;
 					ExamCalEditV.caletI[1] = getText().length();
+
 				}
+				width -= 8;
+				setPrefWidth(width);
+			}else{
+				width += 8;
+				setPrefWidth(width);
 			}
 			// ExamCalEditV.caletI--;
 			// ExamCalEditV.caletI++;
@@ -215,6 +227,8 @@ class FormulaTextField extends TextField {
 			} else {
 				super.replaceText(start, end, text);// ï∂éöí«â¡
 				ExamCalEditV.caletI[1]++;
+				width += 8;
+				setPrefWidth(width);
 			}
 		}
 		/*
