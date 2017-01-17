@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+
 public class ExamCalM {
 	private double[] examInput; // 入力した値
 	private boolean[] isExamInput; // 入力されてるか
@@ -9,7 +12,7 @@ public class ExamCalM {
 	private String fileHost = "data\\";
 	private String fileViewPath; // 一覧表示中のfilePath
 	private String currentPath; // 選択中の正式filePath
-	private String fileName;	//選択中のfileName
+	private String fileName; // 選択中のfileName
 
 	private String editFormula;
 
@@ -18,22 +21,24 @@ public class ExamCalM {
 	}
 
 	void setInit(String goalScore, String[] examInput, int[] heijou) {
-		setExamList(examInput,true);
+		setExamList(examInput, true);
 		setGoalScore(goalScore);
 		setHeijou(heijou);
 	}
 
 	// 入力値セット
-	void setExamList(String[] examInput,boolean clearInputFlag) {
+	void setExamList(String[] examInput, boolean clearInputFlag) {
 		this.examInput = new double[examInput.length]; // 入力した値
-		if(isExamInput == null || clearInputFlag)	//入力チェック一覧
+		if (isExamInput == null || clearInputFlag) // 入力チェック一覧
 			this.isExamInput = new boolean[examInput.length];
 
 		for (int i = 0; i < examInput.length; i++) {
 			if (examInput[i] == null || examInput[i].equals("")) { // 未入力
-				if(clearInputFlag)	isExamInput[i] = false;	//入力欄チェック
+				if (clearInputFlag)
+					isExamInput[i] = false; // 入力欄チェック
 			} else { // 入力済み
-				if(clearInputFlag)	isExamInput[i] = true;
+				if (clearInputFlag)
+					isExamInput[i] = true;
 				this.examInput[i] = Double.parseDouble(examInput[i]);
 			}
 		}
@@ -60,7 +65,7 @@ public class ExamCalM {
 		return currentPath;
 	}
 
-	double[] getExamScoreAr(){
+	double[] getExamScoreAr() {
 		return examInput;
 	}
 
@@ -72,14 +77,18 @@ public class ExamCalM {
 		return FileRead.getFileNameAr(fileViewPath);
 	}
 
-	String getFileName(){
+	String getFileName() {
 		return fileName;
 	}
+	String getFileHost(){
+		return fileHost;
+	}
+
 	String[] getExamInfoList() {
 		return FileRead.readTestInfo(currentPath);
 	}
 
-	String[] getHeijouInfoList(){
+	String[] getHeijouInfoList() {
 		return FileRead.readHeijou(currentPath);
 	}
 
@@ -99,7 +108,7 @@ public class ExamCalM {
 		for (int i = 0; i < 1000; i++) {
 			formulaTmp2 = Calculation.replaceExamScore(formulaTmp, examInput, isExamInput, i); // 入力値置き換え
 			if (Double.parseDouble(goalScore) <= Calculation.calculation(formulaTmp2)) {
-				//計算結果が目標点以上なら代入した値を返す
+				// 計算結果が目標点以上なら代入した値を返す
 				return i;
 			}
 		}
@@ -107,7 +116,31 @@ public class ExamCalM {
 
 	}
 
-	void makeTxFormula(){
-
+	ArrayList<String> makeTxFormula(HBox formulaBox) {
+		String tmp = "";
+		int exam = 0;
+		int heijou = 0;
+		ArrayList<String> text = new ArrayList<>();
+		text.add("");
+		for (int i = 0; i < formulaBox.getChildren().size(); i++) {
+			try {
+				tmp = ((TextField) (formulaBox.getChildren().get(i))).getText();
+				text.set(0, text.get(0) + tmp);
+			} catch (ClassCastException e) {
+				try {
+					// テスト点
+					tmp = ((ExamButton) (formulaBox.getChildren().get(i))).getText();
+					text.set(0, text.get(0) + "T[" + exam + "]");
+					text.add("T[" + exam + "]:" + tmp);
+					exam++;
+				} catch (ClassCastException e2) {
+					tmp = ((ExamButton) (formulaBox.getChildren().get(i))).getText(); // TODO
+																						// button
+					text.set(0, text.get(0) + "H[" + heijou + "]");
+					text.add("T[" + exam + "]:" + tmp);
+				}
+			}
+		}
+		return text;
 	}
 }

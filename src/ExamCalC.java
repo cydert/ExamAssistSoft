@@ -35,21 +35,21 @@ public class ExamCalC {
 	}
 
 	void editFx() {
+		calV.stackScene();
 		ExamCalEditV exV = new ExamCalEditV(stage);
-		exV.getFormula().setOnMouseClicked(e -> ExamCalEditV.caletI = exV.getFormula().getCaretPosition());
+		//exV.getFormula().get(0).setOnMouseClicked(e -> ExamCalEditV.caletI = exV.getFormula().getCaretPosition()); TODO
 		for (int i = 0; i < exV.getMathBt().length; i++) {
 			String input = exV.getMathBt()[i].getText();
 			exV.getMathBt()[i].setOnAction(e -> exV.addFormula(input)); // 入力したものをそのまま表示
-
 		}
 		for (int i = 0; i < exV.getCalB().length; i++) {
-			String input = exV.getCalB()[i].getText(); // キャレット移動か演算子
+			String input = exV.getCalB()[i].getText(); // キャレット移動か演算子ボタン
 			exV.getCalB()[i].setOnAction(e -> {
 				if (input.equals("←")) {
-					ExamCalEditV.caletI--;
+					//ExamCalEditV.caletI--;
 					exV.showCallet();
 				} else if (input.equals("→")) {
-					ExamCalEditV.caletI++;
+					//ExamCalEditV.caletI++;
 					exV.showCallet();
 				} else if (input.equals("DEL")) {
 					exV.delFormula();
@@ -57,8 +57,8 @@ public class ExamCalC {
 					exV.clearFormula();
 				}else if(input.equals("テスト点")){
 					AddExamButtonConfig config = new AddExamButtonConfig();
-					config.getConfirm().setOnAction(ev ->{
-						exV.addTestBt(config.getText());
+					config.getConfirm().setOnAction(ev ->{	//確定ボタン押したら
+						exV.addTestBt(config.getText());	//ボタン追加
 						config.close();
 					});
 
@@ -67,6 +67,15 @@ public class ExamCalC {
 				}
 			});
 		}
+		exV.getSaveBt()[0].setOnAction(e -> {
+			String fileName = exV.getFileName();
+			if(fileName.equals(""))	PublicView.showAlert("教科名を入力してください");
+			else{
+				FileWrite.fileWrite(calM.getFileHost()+"\\"+fileName+".txt", calM.makeTxFormula(exV.getFormulaHBox()));
+				stage.setScene(PublicView.sceneStack.pop());
+			}
+
+		});
 	}
 
 	void save() {

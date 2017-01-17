@@ -27,6 +27,7 @@ public class ExamCalV {
 	private TextField examGoalScore; // –Ú•W“_
 
 	private MenuBar menubar;
+	private Scene scene;
 
 	ExamCalV(Stage stage) {
 		root = new BorderPane();
@@ -99,8 +100,12 @@ public class ExamCalV {
 		root.setBottom(bottomBar);
 		showScoreList(false);
 		PublicView.sceneStack.push(stage.getScene());
-		stage.setScene(new Scene(root));
+		scene = new Scene(root);
+		stage.setScene(scene);
 
+	}
+	void stackScene(){
+		PublicView.sceneStack.push(scene);
 	}
 
 	/* “ü—ÍBOX‚Ì•\Ž¦ */

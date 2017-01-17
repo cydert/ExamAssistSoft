@@ -1,9 +1,10 @@
+import java.util.ArrayList;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -13,12 +14,14 @@ import javafx.stage.Stage;
 
 public class ExamCalEditV {
 	final int BTSIZE = 60;
-	static int caletI = 0; // キャレットの位置
+	static int caletI[] = { 0, 0 }; // キャレットの位置
+
 	Stage stage;
 	BorderPane root = new BorderPane();
 	TextField txName = new TextField();
 	HBox formulaH = new HBox();
-	FormulaTextField txFormula = new FormulaTextField();
+	// FormulaTextField txFormula = new FormulaTextField();
+	ArrayList<FormulaTextField> txFormula = new ArrayList<>();
 	GridPane mathGrid = new GridPane();
 	GridPane calGrid = new GridPane();
 	Button[] mathB;
@@ -28,6 +31,7 @@ public class ExamCalEditV {
 
 	ExamCalEditV(Stage stage) {
 		this.stage = stage;
+		txFormula.add(new FormulaTextField());
 		// 数字キー
 		mathB = new Button[11];
 		for (int i = 9, x = 2, y = 0; i > 0; i--) {
@@ -69,15 +73,25 @@ public class ExamCalEditV {
 		topH.setAlignment(Pos.CENTER);
 		Label lb = new Label("教科名:");
 		topH.getChildren().addAll(lb, txName);
-		formulaH.getChildren().add(txFormula);
+		formulaH.getChildren().add(txFormula.get(0));
 		formulaH.setAlignment(Pos.CENTER);
 		topV.getChildren().addAll(topH, formulaH);
-		root.setTop(topV);
+
 		HBox centerH = new HBox();
 		centerH.setAlignment(Pos.CENTER);
 		centerH.setSpacing(30);
 		centerH.getChildren().addAll(mathGrid, calGrid);
+
+		HBox buttomH = new HBox();
+
+		bt[0]=new Button("テンプレートとして保存");
+		bt[1]=new Button("適用");
+		buttomH.getChildren().addAll(bt);
+		buttomH.setAlignment(Pos.CENTER_RIGHT);
+
+		root.setTop(topV);
 		root.setCenter(centerH);
+		root.setBottom(buttomH);
 
 		stage.setScene(new Scene(root));
 
@@ -90,48 +104,84 @@ public class ExamCalEditV {
 	Button[] getCalB() {
 		return calB;
 	}
+	Button[] getSaveBt(){
+		return bt;
+	}
 
-	TextField getFormula() {
+	ArrayList<FormulaTextField> getFormula() {
 		return txFormula;
+	}
+	HBox getFormulaHBox(){
+		return formulaH;
+	}
+
+	String getFileName(){
+		return txName.getText();
 	}
 
 	void addFormula(String addTx) {
-		txFormula.requestFocus();
-		txFormula.positionCaret(caletI);
-		txFormula.replaceText(caletI, caletI, addTx);
+		txFormula.get(caletI[0]).requestFocus();
+		txFormula.get(caletI[0]).positionCaret(caletI[1]);
+		txFormula.get(caletI[0]).replaceText(caletI[1], caletI[1], addTx);
 
 	}
 
 	void delFormula() {
-		if (caletI > 0)
-			caletI--;
-		txFormula.requestFocus();
-		txFormula.positionCaret(caletI);
-		if (txFormula.getText().equals(""))
-			caletI = 0;
+		if (caletI[1] > 0)
+			caletI[1]--;
+		else if (caletI[0] > 0) {
+			caletI[0]--;
+			caletI[1] = txFormula.get(caletI[0]).getText().length();
+		}
+		txFormula.get(caletI[0]).requestFocus();
+		txFormula.get(caletI[0]).positionCaret(caletI[1]);
+		if (txFormula.get(caletI[0]).getText().equals(""))
+			caletI[1] = 0;
 		else {
-			txFormula.replaceText(caletI, caletI + 1, "");
+			txFormula.get(caletI[0]).replaceText(caletI[1], caletI[1] + 1, "");
 		}
 	}
 
 	void clearFormula() {
-		txFormula.setText("");
-		caletI = 0;
-		txFormula.requestFocus();
-		txFormula.positionCaret(caletI);
+		// TODO clearFormula
+		// txFormula.get(caletI[0]).setText("");
+		txFormula.clear();
+		txFormula.add(new FormulaTextField());
+		caletI[0] = 0;
+		caletI[1] = 0;
+		txFormula.get(caletI[0]).requestFocus();
+		txFormula.get(caletI[0]).positionCaret(caletI[1]);
+
+		/*
+		 * caletI = 0; txFormula.requestFocus();
+		 * txFormula.positionCaret(caletI);
+		 */
 	}
 
 	void showCallet() {
-		if (caletI < 0)
-			caletI = 0;
-		else if (caletI > txFormula.getText().length())
-			caletI = txFormula.getText().length();
-		txFormula.requestFocus();
-		txFormula.positionCaret(caletI);
+		if (caletI[1] < 0) {
+			if (caletI[0] > 0) {
+				caletI[0]--;
+				caletI[1] = txFormula.get(caletI[0]).getText().length();
+			}
+		}
+		// caletI = 0;
+
+		else if (caletI[1] > txFormula.get(caletI[0]).getText().length())
+			caletI[1] = txFormula.get(caletI[0]).getText().length();
+		txFormula.get(caletI[0]).requestFocus();
+		txFormula.get(caletI[0]).positionCaret(caletI[1]);
 	}
 
-	void addTestBt(String name){
-		formulaH.getChildren().add(new Button(name));
+	// テスト点ボタンの追加
+	void addTestBt(String name) {
+		ExamButton testBt = new ExamButton(name);
+		formulaH.getChildren().add(testBt);
+		FormulaTextField txf = new FormulaTextField();
+		txFormula.add(txf);
+		formulaH.getChildren().add(txf);
+		caletI[0]++;
+		caletI[1] = 0;
 
 	}
 }
@@ -143,34 +193,50 @@ class FormulaTextField extends TextField {
 		System.out.println(start + " " + end + " " + text);
 		if (validate(text)) {
 			super.replaceText(start, end, text);// 文字追加
-			if (start < end && ExamCalEditV.caletI != -1)
-				ExamCalEditV.caletI--;
-			ExamCalEditV.caletI++;
+			if (start < end) {// 削除
+				if (ExamCalEditV.caletI[1] > 0) {
+					ExamCalEditV.caletI[1]--;
+				} else {
+					ExamCalEditV.caletI[0]--;
+					ExamCalEditV.caletI[1] = getText().length();
+				}
+			}
+			// ExamCalEditV.caletI--;
+			// ExamCalEditV.caletI++;
+			ExamCalEditV.caletI[1]++;
 
 			if (getCaretPosition() != 0)
-				ExamCalEditV.caletI = getCaretPosition();
+				ExamCalEditV.caletI[1] = getCaretPosition();
 		} else if (cal(text)) { // 演算文字なら
 			if (getCaretPosition() != 0)
-				ExamCalEditV.caletI = getCaretPosition();
+				ExamCalEditV.caletI[1] = getCaretPosition();
 			if (start != 0 && super.getText(start - 1, end).matches("[/\\*\\-\\+\\.\\(]")) { // 演算子連続なら
 				super.replaceText(start - 1, end, text);// 1文字置き換え
 			} else {
 				super.replaceText(start, end, text);// 文字追加
-				ExamCalEditV.caletI++;
+				ExamCalEditV.caletI[1]++;
 			}
 		}
+		/*
 		this.setOnKeyReleased(e -> {
 			if (e.getCode() == KeyCode.RIGHT) {
-				ExamCalEditV.caletI = getCaretPosition();
+				if (ExamCalEditV.caletI[1] == getCaretPosition()) {
+					ExamCalEditV.caletI[0]++;
+					ExamCalEditV.caletI[1] = 0;
+				} else
+					ExamCalEditV.caletI[1] = getCaretPosition();
 			}
 			if (e.getCode() == KeyCode.LEFT) {
-				ExamCalEditV.caletI = getCaretPosition();
+				if(ExamCalEditV.caletI[1] == getCaretPosition()){
+					ExamCalEditV.caletI[0]--;
+					ExamCalEditV.caletI[1]=0;
+				}
 			}
 			if (e.getCode() == KeyCode.BACK_SPACE) {
 				ExamCalEditV.caletI = getCaretPosition();
 			}
 
-		});
+		});*/
 
 	}
 
@@ -189,11 +255,34 @@ class FormulaTextField extends TextField {
 		return text.matches("[/\\*\\-\\+\\.]");
 	}
 }
+class ExamButton extends Button{
+	ExamButton(){
+		super();
+		this.setOnAction(e -> {
+			AddExamButtonConfig config = new AddExamButtonConfig(getText());
+			config.getConfirm().setOnAction(ev -> {
+				this.setText(config.getText());
+				config.close();
+			});
+		});
+	}
+	ExamButton(String tex){
+		super(tex);
+		this.setOnAction(e -> {
+			AddExamButtonConfig config = new AddExamButtonConfig(getText());
+			config.getConfirm().setOnAction(ev -> {
+				this.setText(config.getText());
+				config.close();
+			});
+		});
+	}
+}
 
-class AddExamButtonConfig{
+class AddExamButtonConfig {
 	Stage stage;
 	Button confirm = new Button("確定");
 	TextField txF = new TextField();
+
 	public AddExamButtonConfig() {
 		stage = new Stage();
 		stage.setWidth(600);
@@ -206,21 +295,41 @@ class AddExamButtonConfig{
 		HBox under = new HBox();
 		under.setAlignment(Pos.TOP_RIGHT);
 		under.getChildren().add(confirm);
-		HBox  center = new HBox();
+		HBox center = new HBox();
 		center.setAlignment(Pos.CENTER);
-		center.getChildren().addAll(new Label("テスト名:"),txF);
-		root.getChildren().addAll(center,under);
+		center.getChildren().addAll(new Label("テスト名:"), txF);
+		root.getChildren().addAll(center, under);
 		stage.setScene(new Scene(root));
 	}
-	Button getConfirm(){
+	public AddExamButtonConfig(String text) {
+		stage = new Stage();
+		stage.setWidth(600);
+		stage.setHeight(300);
+		stage.setTitle("設定");
+		stage.initModality(Modality.APPLICATION_MODAL);// 他画面選択不可
+		stage.show();
+
+		VBox root = new VBox();
+		HBox under = new HBox();
+		under.setAlignment(Pos.TOP_RIGHT);
+		under.getChildren().add(confirm);
+		HBox center = new HBox();
+		center.setAlignment(Pos.CENTER);
+		txF.setText(text);
+		center.getChildren().addAll(new Label("テスト名:"), txF);
+		root.getChildren().addAll(center, under);
+		stage.setScene(new Scene(root));
+	}
+
+	Button getConfirm() {
 		return confirm;
 	}
-	String getText(){
+
+	String getText() {
 		return txF.getText();
 	}
-	void close(){
+
+	void close() {
 		stage.close();
 	}
-
-
 }
