@@ -184,6 +184,16 @@ public class ExamCalEditV {
 		caletI[1] = 0;
 
 	}
+	void addHeijouBt(String name,int max){
+		HeijouButton hBt = new HeijouButton(name);
+		hBt.max = max;
+		formulaH.getChildren().add(hBt);
+		FormulaTextField txf = new FormulaTextField();
+		txFormula.add(txf);
+		formulaH.getChildren().add(txf);
+		caletI[0]++;
+		caletI[1] = 0;
+	}
 }
 
 // 式専用入力欄
@@ -292,6 +302,31 @@ class ExamButton extends Button{
 	}
 }
 
+class HeijouButton extends Button{
+	int max=0;
+	 HeijouButton(){
+		super();
+		this.setOnAction(e -> {
+			AddExamButtonConfig config = new AddExamButtonConfig(getText());
+			config.getConfirm().setOnAction(ev -> {
+				this.setText(config.getText());
+				config.close();
+			});
+		});
+	}
+	 HeijouButton(String tex){
+		super(tex);
+		this.setOnAction(e -> {
+			AddHeijouButtonConfig config = new AddHeijouButtonConfig(getText(),max);
+			config.getConfirm().setOnAction(ev -> {
+				this.setText(config.getText());
+				this.max = config.getMax();
+				config.close();
+			});
+		});
+	}
+}
+
 class AddExamButtonConfig {
 	Stage stage;
 	Button confirm = new Button("確定");
@@ -341,6 +376,76 @@ class AddExamButtonConfig {
 
 	String getText() {
 		return txF.getText();
+	}
+
+	void close() {
+		stage.close();
+	}
+}
+
+
+class AddHeijouButtonConfig {
+	Stage stage;
+	Button confirm = new Button("確定");
+	TextField txF = new TextField();
+	NumTextField numTF = new NumTextField();
+
+
+	public AddHeijouButtonConfig() {
+		stage = new Stage();
+		stage.setWidth(600);
+		stage.setHeight(300);
+		stage.setTitle("設定");
+		stage.initModality(Modality.APPLICATION_MODAL);// 他画面選択不可
+		stage.show();
+
+		VBox root = new VBox();
+		HBox under = new HBox();
+		under.setAlignment(Pos.TOP_RIGHT);
+		under.getChildren().add(confirm);
+		HBox[] center = {new HBox(),new HBox()};
+		center[0].setAlignment(Pos.CENTER);
+		center[1].setAlignment(Pos.CENTER);
+		center[0].getChildren().addAll(new Label("平常点名:"), txF);
+		center[1].getChildren().addAll(new Label("最大値:"),numTF);
+
+		root.getChildren().addAll(center[0],center[1],under);
+		stage.setScene(new Scene(root));
+	}
+	public AddHeijouButtonConfig(String text,int max) {
+		stage = new Stage();
+		stage.setWidth(600);
+		stage.setHeight(300);
+		stage.setTitle("設定");
+		stage.initModality(Modality.APPLICATION_MODAL);// 他画面選択不可
+		stage.show();
+
+		txF.setText(text);
+		numTF.setText(max+"");
+
+		VBox root = new VBox();
+		HBox under = new HBox();
+		under.setAlignment(Pos.TOP_RIGHT);
+		under.getChildren().add(confirm);
+		HBox[] center = {new HBox(),new HBox()};
+		center[0].setAlignment(Pos.CENTER);
+		center[1].setAlignment(Pos.CENTER);
+		center[0].getChildren().addAll(new Label("平常点名:"), txF);
+		center[1].getChildren().addAll(new Label("最大値:"),numTF);
+
+		root.getChildren().addAll(center[0],center[1],under);
+		stage.setScene(new Scene(root));
+	}
+
+	Button getConfirm() {
+		return confirm;
+	}
+
+	String getText() {
+		return txF.getText();
+	}
+	int getMax(){
+		return Integer.parseInt(numTF.getText());
 	}
 
 	void close() {

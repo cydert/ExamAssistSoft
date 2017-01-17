@@ -61,7 +61,12 @@ public class ExamCalC {
 						exV.addTestBt(config.getText());	//ボタン追加
 						config.close();
 					});
-
+				}else if(input.equals("平常点")){
+					AddHeijouButtonConfig config = new AddHeijouButtonConfig();
+					config.getConfirm().setOnAction(ev ->{
+						exV.addHeijouBt(config.getText(),config.getMax());
+						config.close();
+					});
 				} else {
 					exV.addFormula(input);// 演算子
 				}
