@@ -37,11 +37,7 @@ public class ExamCalC {
 	void editFx() {
 		calV.stackScene();
 		ExamCalEditV exV = new ExamCalEditV(stage);
-<<<<<<< HEAD
 
-=======
-		//exV.getFormula().get(0).setOnMouseClicked(e -> ExamCalEditV.caletI = exV.getFormula().getCaretPosition()); TODO
->>>>>>> 6e37d9d7a89acc0edd198e96548cc771b43afd3b
 		for (int i = 0; i < exV.getMathBt().length; i++) {
 			String input = exV.getMathBt()[i].getText();
 			exV.getMathBt()[i].setOnAction(e -> exV.addFormula(input)); // 入力したものをそのまま表示
@@ -51,17 +47,10 @@ public class ExamCalC {
 			exV.getCalB()[i].setOnAction(e -> {
 				if (input.equals("←")) {
 					//ExamCalEditV.caletI--;
-<<<<<<< HEAD
 					exV.leftCaret();
 				} else if (input.equals("→")) {
 					//ExamCalEditV.caletI++;
 					exV.rightCaret();
-=======
-					exV.showCallet();
-				} else if (input.equals("→")) {
-					//ExamCalEditV.caletI++;
-					exV.showCallet();
->>>>>>> 6e37d9d7a89acc0edd198e96548cc771b43afd3b
 				} else if (input.equals("DEL")) {
 					exV.delFormula();
 				}else if(input.equals("C")){
@@ -83,21 +72,13 @@ public class ExamCalC {
 				}
 			});
 		}
-<<<<<<< HEAD
 		exV.getSaveBt()[0].setOnAction(e -> {	//テンプレートとして保存(ファイル書き込み)
-=======
-		exV.getSaveBt()[0].setOnAction(e -> {
->>>>>>> 6e37d9d7a89acc0edd198e96548cc771b43afd3b
 			String fileName = exV.getFileName();
 			if(fileName.equals(""))	PublicView.showAlert("教科名を入力してください");
 			else{
 				FileWrite.fileWrite(calM.getFileHost()+"\\"+fileName+".txt", calM.makeTxFormula(exV.getFormulaHBox()));
 				stage.setScene(PublicView.sceneStack.pop());
 			}
-<<<<<<< HEAD
-=======
-
->>>>>>> 6e37d9d7a89acc0edd198e96548cc771b43afd3b
 		});
 	}
 
