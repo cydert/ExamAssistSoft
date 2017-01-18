@@ -134,10 +134,9 @@ public class ExamCalM {
 					text.add("T[" + exam + "]:" + tmp);
 					exam++;
 				} catch (ClassCastException e2) {
-					tmp = ((ExamButton) (formulaBox.getChildren().get(i))).getText(); // TODO
-																						// button
+					tmp = ((HeijouButton) (formulaBox.getChildren().get(i))).getText();
 					text.set(0, text.get(0) + "H[" + heijou + "]");
-					text.add("T[" + exam + "]:" + tmp);
+					text.add("H[" + exam + "]:" + tmp + "," + ((HeijouButton) (formulaBox.getChildren().get(i))).max);
 				}
 			}
 		}
