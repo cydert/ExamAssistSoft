@@ -12,7 +12,6 @@ public class ExamCalC {
 		this.stage = stage;
 		calV = new ExamCalV(stage);
 		calM = new ExamCalM();
-
 		calV.bindModel(calM);
 
 		// ボタン時の動作
@@ -72,6 +71,7 @@ public class ExamCalC {
 				}
 			});
 		}
+		exV.getBack().setOnAction(e -> stage.setScene(PublicView.sceneStack.pop()) );	//戻る
 		exV.getSaveBt()[0].setOnAction(e -> {	//テンプレートとして保存(ファイル書き込み)
 			String fileName = exV.getFileName();
 			if(fileName.equals(""))	PublicView.showAlert("教科名を入力してください");
@@ -79,6 +79,9 @@ public class ExamCalC {
 				FileWrite.fileWrite(calM.getFileHost()+"\\"+fileName+".txt", calM.makeTxFormula(exV.getFormulaHBox()));
 				stage.setScene(PublicView.sceneStack.pop());
 			}
+		});
+		exV.getSaveBt()[1].setOnAction(e -> {	//適用
+
 		});
 	}
 

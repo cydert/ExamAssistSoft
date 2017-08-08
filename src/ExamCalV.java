@@ -55,7 +55,7 @@ public class ExamCalV {
 				menu[i].getItems().add(item[i][j]);
 			}
 		}
-		menubar.getMenus().addAll(menu);
+		//menubar.getMenus().addAll(menu);	未実装なため非表示
 
 		// ボタン
 		button = new Button[6];
@@ -86,7 +86,7 @@ public class ExamCalV {
 		centerGrid = new GridPane();
 		centerGrid.setAlignment(Pos.CENTER);
 		centerGrid.setHgap(10);// 列間
-		centerGrid.setVgap(10);// 行間
+		centerGrid.setVgap(20);// 行間
 
 		// 下のボタン
 		AnchorPane.setLeftAnchor(button[2], 10.0);

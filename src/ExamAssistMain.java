@@ -8,8 +8,8 @@ public class ExamAssistMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		// 初期設定
-		primaryStage.setWidth(800);
-		primaryStage.setHeight(400);
+		primaryStage.setWidth(1000);
+		primaryStage.setHeight(600);
 		primaryStage.setTitle("定期テスト支援ソフト");
 		primaryStage.show();//window表示
 		PublicView.bindStage(primaryStage);
