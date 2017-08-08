@@ -104,6 +104,7 @@ public class ExamCalM {
 	int cal() {
 		String formula = getFormula(); // 式を取得
 		String formulaTmp = Calculation.replaceHeijouScore(formula, heijou); // 平常点の置き換え
+		/*
 		String formulaTmp2;
 		for (int i = 0; i < 1000; i++) {
 			formulaTmp2 = Calculation.replaceExamScore(formulaTmp, examInput, isExamInput, i); // 入力値置き換え
@@ -111,8 +112,32 @@ public class ExamCalM {
 				// 計算結果が目標点以上なら代入した値を返す
 				return i;
 			}
-		}
-		return 1000;
+		}*/
+		double goal = Double.parseDouble(goalScore);
+        int l = 0, c = 0, r = 100;
+        double sco;
+        boolean f = true;
+        while (r - l > 2) {
+            c = (r + l) / 2;
+            sco = Calculation.calculation(Calculation.replaceExamScore(formulaTmp, examInput, isExamInput, c));
+            if (goal < sco) {//減らす
+                r = c + 1;
+                f = false;
+            } else if (f) {//(上限も)増やす
+                l = c;
+                r *= 2;
+            } else {//増やす
+                l = c;
+            }
+        }
+        double sc = 0;
+        for (sc = c - 1; sc < c + 2; sc += 0.1) {
+            if (goal <= Calculation.calculation(Calculation.replaceExamScore(formulaTmp, examInput, isExamInput, c))) {
+                break;
+            }
+        }
+
+		return (int) ((sc*100) / 100.0);
 
 	}
 
